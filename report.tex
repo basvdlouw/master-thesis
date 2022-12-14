@@ -1,0 +1,100 @@
+\documentclass{ou-report}
+\citestyle{agu}
+
+% Dit template is gemaakt door P.J. Molijn in het kader van zijn afstuderen aan de OU in 2014.
+% Waarvoor hartelijk dank.
+% Minieme maar belangrijke wijzigingen zijn aangebracht door E.M. van Doorn
+% Het template is versimpeld door Sylvia Stuurman, 2019.
+% Het template is van extra aanwijzingen voorzien door Sylvia Stuurman, 2021.
+
+
+%\hypersetup{
+%pdfsubject={Master Thesis <Titel>, <author>},
+%pdfkeywords={keyword1, keyword2}
+%}
+
+\begin{document}
+\pagestyle{plain}
+\title{Dit is de titel van mijn afstudeerverslag}
+\author{Ik ben de auteur}
+%Title of the thesis
+%\title[Subtitle]{Title}
+%\author{author}
+%\affiliation{
+%\begin{tabular}{ll}
+%Student: & studentnumber \\
+%Date:    & DD/MM/YYY \\
+%\end{tabular}
+%}
+%
+%%\coverimage{cover/cover.jpg}
+%%            ===============
+%\makecover[frontboxwidth=4.6in]
+\input{title}
+
+%% Use Roman numerals for the page numbers of the title pages and table of
+%% contents.
+\pagenumbering{roman}
+%% Include an optional title page.
+
+\frontmatter 
+
+
+\let\cleardoublepage\clearpage
+
+% Optional Dedication, Acknowledgement
+%\input{dedication}
+
+%\input{acknowledgement}
+
+
+%Optional: list of figures, list of tables
+%\listoffigures
+
+%\listoftables
+
+%% Include an optional summary page.
+%\input{Summary/summary}
+%\input{Summary/samenvatting}
+
+
+\pagenumbering{arabic}
+
+\input{acknowledgements/acknowledgements}
+\input{summary/summary}
+
+\tableofcontents
+
+\mainmatter
+
+\input{introduction/introduction}
+
+\input{problem/problem}
+
+\input{method/method}
+
+\input{relatedwork/relatedwork}
+
+\input{results/results}
+
+\input{conclusion/conclusion}
+
+\input{discussion/discussion}
+
+\backmatter
+\pagenumbering{roman}
+
+\input{reflection/reflection}
+
+\bibliographystyle{plainnat}
+\bibliography{report}
+
+%% Use letters for the chapter numbers of the appendices.
+%\appendix
+\appendix
+%  \input{Appendices/appendix-a}
+%  \input{Appendices/appendix-b}
+%  \input{Appendices/appendix-c}
+
+
+\end{document}
