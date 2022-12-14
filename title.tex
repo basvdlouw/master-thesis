@@ -15,14 +15,14 @@
 %% Print the title in specific color.
 {\makeatletter
 %\titlestyle\color{ou-cyan}\Huge\@title
-\titlestyle\color{red}\Huge\@title
+\titlestyle\color{red}\Huge\@title{}
 \makeatother}
 
 %% Print the optional subtitle in black.
 {\makeatletter
 \ifx\@subtitle\undefined\else
     \bigskip
-    \titlefont\titleshape\LARGE\@subtitle
+    \titlefont\titleshape\LARGE\@subtitle{}
 \fi
 \makeatother}
 
@@ -37,7 +37,7 @@ by
 
 %% Print the name of the author.
 {\makeatletter
-\titlefont\Large\bfseries\@author
+\titlefont\Large\bfseries\@author{}
 \makeatother}
 
 \vfill
@@ -59,7 +59,7 @@ at the Open University, faculty of Management, Science and Technology \\
 Master Software Engineering
 %aan de Open Universiteit Nederland,
 
-to be defended publicly on Day Month DD, YYYY at HH:00 PM.
+to be defended publicly on Day Month DD, YYYY at HH:00 PM.\@
 %in het openbaar te verdedigen op dinsdag 9 september om 15:00 uur.
 
 \vfill
