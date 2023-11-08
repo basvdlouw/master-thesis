@@ -66,7 +66,7 @@ WebSocket is a communication protocol that provides full-duplex communication ch
 \subsubsection{WebRTC}
 
 WebRTC (Web Real-Time Communication) is a collection of communication protocols and APIs that enables peer-to-peer audio, video, and data sharing between browsers. It allows direct communication between browsers without the need for intermediate servers. WebRTC API provides methods to establish connections, exchange data, and control media streams.
-WebRTC used to be a viable port scanning technique in the past, due to the \texttt{RTCPeerConnection.onicecandidateerror} eventhandler emitting useful error information about the status of the connection. However, after being exploited by Baines~\cite{baines2019} in 2019, 
+WebRTC used to be a viable port scanning technique in the past, due to the \texttt{RTCPeerConnection.onicecandidateerror} event handler emitting useful error information about the status of the connection. However, after being exploited by Baines~\cite{baines2019} in 2019, 
 this functionality has been removed for local connections\footnote{\url{https://webrtc.googlesource.com/src.git/+/712ebbb5b73baf30f11711efdceb6f08248fac38\%5E\%21/\#F0}}, and therefore scanning the local network via WebRTC is not possible anymore.
 
 \subsubsection{Beacon API}
