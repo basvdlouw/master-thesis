@@ -1,0 +1,360 @@
+\chapter{Fingerprinting Applications}
+
+In this chapter, we focus on the capabilities of browser-based port scanning for identifying programs running locally on a user's system. 
+
+\section{Fingerprinting the underlying operating system}
+
+In this section, we explore the potential of fingerprinting the underlying operating system through browser-based port scanning. As mentioned previously, numerous ports utilized by the operating system fall under the category of unsafe or restricted ports. Consequently, these particular ports remain undetectable through browser-based port scanning.
+
+Nevertheless, certain ports employed by the OS do not carry the restricted classification, allowing us the opportunity to fingerprint and distinguish different OS configurations from each other. 
+
+\subsection{Motivation}
+
+The motivation for fingerprinting the underlying operating system serves a dual purpose, encompassing both privacy and security concerns, each of which carries its own set of implications.
+
+\subsubsection{Privacy Concerns}
+
+Detecting running services on the operating system allows us to distinguish users from each other and potentially track their online activities across multiple browsing sessions. This capability raises significant concerns about user anonymity and invasive tracking practices. Understanding the extent of OS identification and associated privacy risks is crucial to safeguarding user data and online privacy.
+
+\subsubsection{Security Concerns}
+
+Secondly, the ability to detect open ports can have profound security implications. Open ports may represent services or applications running on the system, potentially revealing valuable information to malicious actors. Specifically:
+
+\begin{enumerate}
+  \item \textbf{Scanning for known exploits:} Identifying open ports allows for a preliminary assessment of the security posture of an operating system. Some open ports may indicate the presence of services or software that could be vulnerable to known exploits. 
+  
+  \item \textbf{Attack surface analysis:} Exposed open ports serve as entry points into the operating system, which malicious actors can exploit for various purposes, including unauthorized access and reconnaissance.
+\end{enumerate}
+
+\subsection{Experiment Target}
+The experiment primarily focuses on identifying running services on both Windows 11 and Ubuntu 22.04 operating systems, using browser-based port scanning. The main objectives are:
+
+\begin{enumerate}
+    \item \textbf{Port Scanning:}
+    \begin{itemize}
+        \item To scan the entire port range on default installations of Windows and Ubuntu.
+        \item To identify if there are any open ports that are detectable through browser-based port scanning.
+    \end{itemize}
+
+    \item \textbf{Service Activation:}
+    \begin{itemize}
+        \item To activate various network-related services within the operating systems.
+        \item To monitor and record any new ports that become open as a result of these service activations.
+        \item To assess the potential for browser-based port scanning to detect these services
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Experiment Setup}
+
+The experiment was based on default installations of Windows 11 and Ubuntu 22.0.4, with no existing services activated. It involved the following steps:
+
+\subsubsection{Port Scanning}
+
+The browser-based port scanner application as discussed in the previous chapter was used to scan the entire port range (0-65536) for both default installations of Windows and Ubuntu 22.04.
+
+\subsubsection{Service Activation and Port Monitoring}
+
+To systematically activate network-related services within the operating systems, we followed a manual approach:
+
+\begin{itemize}
+    \item On Windows, we methodically enabled every available Windows feature and enabled settings that may require network connectivity, such as Bluetooth, Devices, Phone Link, VPN and Remote Desktop Protocol. After each change, we monitored the status of the ports using the \emph{netstat} command and other command line directives.
+    \item On Ubuntu, we adopted a similar process, systematically enabling network-related services and monitoring if any new ports were opened.
+\end{itemize}
+
+\subsubsection{Verification of Port Openings}
+
+Once a port was identified as open after service activation, we conducted two verification steps:
+
+\begin{itemize}
+    \item First, we attempted to detect the open port using the port scanner application. 
+    \item Second, if the port scanner application did not detect the open port, we verified that the port was not detectable via timing-based attacks.
+\end{itemize}
+
+\subsection{Experiment Results}
+
+\subsubsection{Fingerprinting Windows 11}
+\label{section:win11-fingerprint}
+
+In our experiment, we conducted a thorough scan across the entire port range on a default Windows 11 installation. Initially, no open ports (beyond the restricted range) were detected. However, after making adjustments to the OS configuration, we successfully identified several open ports. These results are summarized in Table~\ref{tab:windows-features-open-ports}.
+
+\begin{table}[htbp]
+\footnotesize
+\centering
+\begin{tabular}{p{4cm}p{1cm}p{2cm}p{8cm}}
+    \toprule
+    Windows Feature & Open Port & Associated Process & Description \\
+     \midrule
+     Hyper-V & 2869, 5357 & svchost.exe, ntoskrnl.exe, vmms.exe & Enabling the Hyper-V Windows feature, which provides a native hypervisor, led to the opening of ports 2869 and 5357. These ports were associated with processes such as svchost.exe, ntoskrnl.exe, and vmms.exe. Hyper-V is commonly used for running virtual machines and containers, making these ports relevant for detection. \\
+     
+     Internet Information Services (IIS) & 80 & InetMgr.exe, ntoskrnl.exe & Enabling Internet Information Services (IIS) resulted in port 80 becoming open, as it hosts a default website. The process responsible for this port was ntoskrnl.exe, which is integral to the Windows operating system. \\
+     
+     Microsoft Message Queue (MSMQ) Server & 50921 & mqsvc.exe & While enabling MSMQ temporarily opened port 50921, it falls within the dynamic port range and is not suitable for reliable fingerprinting. \\
+     \bottomrule
+\end{tabular}
+\caption{Windows Features and Their Associated Open Ports}
+\label{tab:windows-features-open-ports}
+\end{table}
+
+Additionally, Windows contains a default mapping of well-known ports in the 
+
+\texttt{\%WINDIR\%\textbackslash System32\textbackslash drivers\textbackslash etc\textbackslash services} file, including approximately 100–135 ports outside the restricted range, which can serve as a foundation for targeted scans.
+
+\subsubsection{Fingerprinting Ubuntu 22.04}
+
+In our examination of a default installation of Ubuntu 22.04, we consistently found port 631 to be open. This port corresponds to the Common Unix Printing System (CUPS), a printer software driver.
+
+Like Windows, Ubuntu maintains a \texttt{/etc/services} file, mapping 326 well-known ports to services. While most of these ports fall within the restricted range, approximately 150–180 ports are outside it, providing a basis for fingerprinting different Ubuntu OS configurations.
+
+\subsection{Analysis}
+
+For Windows 11, specific Windows features and network-related settings result in detectable open ports. Enabling features like Hyper-V and Internet Information Services (IIS) resulted in identifiable open ports, making them valuable indicators for distinguishing different Windows configurations. 
+
+In the case of Ubuntu 22.04, the consistent presence of port 631 associated with CUPS simplifies the identification of default Ubuntu installations.  While it may not guarantee a 100\% accuracy in OS fingerprinting, its integration with existing techniques improves the reliability of the OS fingerprint. 
+
+The \texttt{/etc/services} file found on both Windows and Ubuntu can be used for a targeted scan on a system, after detecting which OS is making the request. All ports within the \texttt{/etc/services} file can be scanned in one second, making it a realistic enhancement to existing fingerprinting techniques.  
+
+\subsection{Conclusion}
+
+The experiment demonstrated that specific configurations and features in both Windows 11 and Ubuntu 22.04 can lead to identifiable ports on the system.
+
+On Ubuntu, the consistent presence of port 631 associated with CUPS simplifies the identification of default Ubuntu installations, and may strengthen existing fingerprinting techniques related to OS detection.
+
+The experiment also underscored the relevance of timing attacks and browser-based port scanning techniques for detecting open ports, particularly in scenarios such as identifying active RDP connections.
+
+In conclusion, the experiment indicates that by incorporating browser-based port scans into existing fingerprinting techniques, we can significantly enhance their effectiveness. This enhancement not only increases the uniqueness of the fingerprint, but also enables more sophisticated user tracking across browser sessions, which has implications for user privacy.
+
+Furthermore, browser-based port scanning has the capability to identify certain running operating system services. This aspect may be of particular interest to malicious actors seeking to exploit known services operating on specific ports.
+
+Additionally, browser-based port scanning can serve as a defensive measure. It can be employed to block users who are being controlled through remote access tools, a technique previously used by eBay~\cite{ebay_port_scans}.
+
+
+
+% \subsection{Fingerprinting Windows 11}
+% \label{section:win11-fingerprint}
+
+% When conducting a scan across the entire port range on a default Windows installation, no open ports (beyond the restricted range) were detected. Nevertheless, after making adjustments to the OS configuration, we managed to identify several open ports. On Windows, there are certain features known as \emph{Windows features} that can be enabled or disabled. Enabling some of these Windows features can result in the opening of ports on the system that are detectable. We tested every available Windows feature, the features that opened a port are listed in table~\ref{tab:windows-features-open-ports}
+
+% \begin{table}[htbp]
+% \footnotesize
+% \centering
+% % \begin{adjustwidth}{-1.0cm}{}
+% \begin{tabular}{p{4cm}p{1cm}p{2cm}p{8cm}}
+%     \toprule
+%     Windows Feature & Open port & Process & Description \\
+%      \midrule
+%      Hyper-V & 2869, 5357 & svchost.exe, ntoskrnl.exe, vmms.exe & The Hyper-V windows feature enables a native hypervisor on the system. Systems running virtual machines, containers or WSL usually have this feature enabled. When this feature is enabled, a process vmms.exe is spawned, which manages Hyper-V. This process, as well as generic system processes on Windows such as svchost.exe and ntoskrnl.exe were found to open ports 2869 and 5357. \\
+     
+%      Internet Information Services (IIS) & 80 & InetMgr.exe, ntoskrnl.exe & IIS is a popular webserver on Windows which can be enabled through windows features. When enabled, the webserver hosts a default website on port 80. Similarly to Hyper-V, the system process ntoskrnl.exe is responsible for the open port. \\
+
+%      Microsoft Message Queue (MSMQ) Server & 50921 & mqsvc.exe & MSMQ is another windows feature that can be enabled. During our testing, it temporarily opened port 50921, however, this is an ephemeral port in the dynamic port range. Therefore, we cannot use this port for fingerprinting purposes. \\
+%      \bottomrule
+% \end{tabular}
+% % \end{adjustwidth}{}
+% \caption{Windows features open ports}
+% \label{tab:windows-features-open-ports}
+% \end{table}
+
+% \clearpage
+
+% Aside from Windows features, there are standard settings that may be enabled or disabled on Windows. We tested for open ports (outside the restricted range) on settings that require network connectivity, such as Bluetooth, Devices, Phone Link, VPN and Remote Desktop Protocol. These are all settings that are natively supported by Windows, and we therefore consider them to be OS configurations. 
+
+% Among these, VPN and Remote Desktop Protocol (RDP) exhibited noteworthy findings. While a VPN connection might not be detectable by itself, our tests involving ExpressVPN revealed an interesting aspect. The ExpressVPN application seemed to open port 2020, which we could consistently detect while the VPN was active. This implies that although the Windows OS doesn't inherently trigger the opening of a specific port upon VPN configuration, the VPN application itself does so.
+
+% Regarding Remote Desktop Protocol (RDP), establishing a connection to a remote machine doesn't appear to expose any open ports on the host machine. However, on the machine to which the connection is made, we were able to identify the presence of an active RDP connection. While the Fetch API doesn't directly identify that the RDP port (3389) is open, we managed to determine that the port was open via a timing attack. This approach enables us to detect the open port consistently. This finding suggests that browser-based port scanning remains a viable method for detecting remote access tools, similar to the technique employed by eBay in 2020~\cite{ebay_port_scans}.
+
+% Apart from these settings, Windows contains a default mapping of well-known ports in the \texttt{\%WINDIR\%\textbackslash System32\textbackslash drivers\textbackslash etc\textbackslash services}. file. This document includes mappings for 278 ports linked to common system processes and programs. The majority fall within the restricted range, preventing detection, but approximately 100-135 ports are outside this range, serving as a foundation for targeted scans on a system.
+
+% \subsection{Fingerprinting Ubuntu 22.04}
+
+% In a default installation of Ubuntu 22.04, port 631 consistently appeared open. This port corresponds to CUPS, a printer software driver. Contrary to Windows, identifying a default Ubuntu installation becomes relatively straightforward by scanning for this open port. While relying solely on this does not ensure a 100\% accuracy in OS fingerprinting, its integration with existing techniques does improve the reliability of the fingerprinting process.
+
+% Beyond CUPS, adjustments were made to various OS settings requiring network connectivity, mirroring the process on Windows. No opened ports were discovered. Nevertheless, similarly to Windows, Linux features an \texttt{/etc/services} file, mapping 326 well-known ports to services. While most fall within the restricted range, around 150-180 ports are outside it. This presents a solid basis for fingerprinting different Linux OS configurations.
+
+\section{Identifying running programs}
+
+To establish the potential for fingerprinting applications via browser-based port scanning, we selected a limited number of applications from various categories and performed browser-based port scanning to confirm their detectability. The categories target different type of applications to establish the potential of user-profiling.
+
+\subsection{Motivation}
+
+The motivation behind identifying running programs bears a resemblance to the process of fingerprinting the underlying operating system. This similarity extends to encompass concerns related to privacy and security.
+
+\subsubsection{Privacy Concerns}
+
+Detecting running programs gives websites the potential to learn about personal information of users. This can be achieved by mapping common programs to their default ports, and scanning for these ports using browser-based port scanning. Consequently, this capability can be used to identify the individual preferences of users, such as their preferred software applications. This data can be used for various purposes, including crafting personalized advertisements, as well as potentially more nefarious applications like phishing.
+
+Moreover, akin to the practice of OS fingerprinting, the identification of open ports can be utilized to generate a unique fingerprint, enabling the tracking of users across multiple browsing sessions. This persistent tracking can lead to a loss of anonymity and privacy, as users' online behaviors become more traceable.
+
+\subsubsection{Security Concerns}
+
+Secondly, the capacity to detect open ports holds security implications. Much like OS fingerprinting, the identification of running programs may be exploited to target known vulnerabilities within those programs. 
+
+\subsection{Experiment Target}
+
+The experiment focuses on identifying running programs in order to assess the feasibility of browser-based port scanning. We have chosen a select few categories to concentrate on, with the aim of targeting various types of programs and users.
+
+These categories can be broadly categorized into three main groups: user privacy, user preferences, and fingerprinting. Within these main categories, we have chosen a limited number of subcategories to specifically target different types of programs.
+
+\begin{enumerate}
+    \item \textbf{User privacy:}
+    \begin{itemize}
+        \item Video / Chat
+        \item VPN
+    \end{itemize}
+    \item \textbf{User preferences:}
+    \begin{itemize}
+        \item Entertainment
+        \item Gaming
+        \item Programming
+    \end{itemize}
+    \item \textbf{Fingerprinting:}
+    \begin{itemize}
+        \item Operating System
+        \item Web Browser
+        \item Peripherals
+        \item Automation framework
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Experiment Setup}
+
+The setup for the experiment is similar to fingerprinting the underlying OS.
+
+\begin{enumerate}
+    \item \textbf{Launching the Programs}: For each target program, a repeatable verification process was carried out. This process involved launching the application and using PowerShell directives, namely \texttt{Get-NetUDPEndpoint} and \texttt{Get-NetTCPConnection}, to determine if the application had opened any local ports.
+    
+    \item \textbf{Verifying Detectable Ports}: Browser-based port scanning was used to verify if any of the newly opened ports were detectable. Additionally, response times were measured for post-scan analysis.   
+
+    \item \textbf{Verifying Detectability Through Timing Attacks}: Response times were compared to closed ports, in order to verify whether ports were detectable through timing measurements.
+\end{enumerate}
+
+
+\subsection{Experiment Results}
+
+The results of the scanned applications are presented in Table~\ref{tab:identifying-applications}.
+
+\begin{table}[htbp]
+\footnotesize
+\centering
+\begin{adjustwidth}{-0.5cm}{}
+\begin{tabular}{p{2cm}p{2cm}p{1cm}p{1cm}p{1cm}p{1cm}p{1cm}p{5cm}}
+    \toprule
+    Category & Application & \multicolumn{2}{c}{opened ports} & \multicolumn{2}{c}{detected ports} & Resp. Time & Notes\\
+     \cmidrule{3-4} \cmidrule{5-6} \cmidrule{7-7}
+     & & TCP & UDP & TCP & UDP & in ms & \\
+     \midrule
+     Video / Chat & Discord & 6463 & -- & 6463 & -- & 105,3 & Port 6463 is running HTTP. \\
+     Video / Chat & MS Teams & 62391 62390 62389 62388 62368 & 50811 & -- & -- & >200 & No TCP ports in a listening state. \\
+     Entertainment & Spotify & 57621 60933 60937--60954 & -- & 57621 60933 & -- & 66.69 39.59 & Many ports in 609xx range with established TCP connections, but only ports 56721 and 60933 in a Listening state. \\ 
+     Operating System & Windows Store & 63503 63504 63506 63507 & -- & -- & -- & >200 & No TCP ports in a listening state. \\ 
+    Programming & Visual Studio Code & 51736--51763 & -- & -- & -- & >200 & No TCP ports in a listening state. \\ 
+    Gaming & Steam & 53245 53237 53236 27060 27036 & -- & 27060 & -- & 120.19 & Many ports in Established state. Only port 27060 in a Listening state. \\ 
+    VPN & ExpressVPN & 54719 2020 & -- & 2020 & -- & 56.79 & Ports 2020, 54719 in a listening state. \\ 
+    Automation framework & Selenium & 59542. 59536 59536 30454 & -- & 30454 & -- & 72.39 & \\ 
+    Web Browser & Microsoft Edge & 61773--61849 & -- & -- & -- & >200 & No TCP ports in a listening state. \\ 
+    Peripherals & Logitech G HUB & 9010 9080 9100 45654 & -- & 9010 9080 9100 45654 & -- & 68 31.1 60.6 62.9 & All ports running HTTP. \\ 
+     \bottomrule
+\end{tabular}
+\end{adjustwidth}{}
+\caption{Identified open ports on a testing machine using Windows 11 and Chrome 114}
+\label{tab:identifying-applications}
+\end{table}
+\clearpage
+
+\subsection{Analysis}
+
+We drew several conclusions from these results. In general, TCP ports running HTTP were reliably detectable, as HTTP servers will return an HTTP response code regardless of whether the request succeeded or not. We see many examples of this in the results, such as the Discord, Selenium, and Logitech G HUB applications. Furthermore, scanning for open HTTP ports can be done quickly, because HTTP servers respond quickly, making this fingerprinting technique a realistic attack vector. Additionally, since HTTP ports can be detected by examining the error code in the response, there is no need to measure response times.
+
+Detecting TCP ports that do not run HTTP is more challenging, because they do not respond with HTTP status codes, making them less easily detectable. However, we found that some open TCP ports not running HTTP, such as Spotify and ExpressVPN, have response times that differ significantly from the configured socket timeout of 200ms. In contrast, closed ports typically time out between 200-215ms. Therefore, when TCP ports respond within less than 200ms, they can usually be considered open ports. This suggests that measuring response times of TCP ports could be a reliable fingerprinting technique, but it has some limitations.
+
+Response times depend on several factors, such as the operating system, browser, underlying hardware, and network configuration. Moreover, as previously mentioned, \emph{unsafe} ports will respond quickly, but that does not mean that they are open ports. Additionally, as found in Chapter~\ref{section:socket-timeout-setting}, this method of using timing attacks will not work on Ubuntu, because the socket timeout of 200ms is not respected like it is on Windows. 
+
+For this reason, we conclude that applications that open a TCP port outside the restricted/unsafe range running HTTP(S) are reliably detectable using the Fetch API. TCP ports not running HTTP can sometimes be detected using timing attacks, depending on the platform. We saw similar behavior in Section~\ref{section:win11-fingerprint}, where an RDP connection was not directly detected by the Fetch API, but was still detectable via a timing attack.
+
+\subsubsection{Mapping applications to open ports}
+
+Having successfully demonstrated the feasibility of reliably fingerprinting certain applications through browser-based port scanning, the next logical step would involve establishing a correlation between applications and the associated open ports. This correlation would significantly enhance our fingerprinting capabilities. However, this task leans more towards an engineering problem rather than a research problem. As a result, we didn't emphasize the development of this mapping in our current work.
+
+Nonetheless, it's worth noting that there are existing mappings available that can serve as a solid foundation for fingerprinting purposes, even if they are not exhaustive. Among these mappings, the one hosted by the Internet Assigned Numbers Authority stands out as the most extensive dataset currently available\footnote{https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.txt}. This dataset maps over 10,000 ports to known applications and services.
+
+\subsection{Conclusion}
+
+The detection of open ports using browser-based port scanning, particularly those running HTTP services, proves to be a feasible and reliable, showcasing the potential for this approach as a fingerprinting technique. 
+
+Motivated by privacy and security concerns, the ability to identify running programs has important implications. Privacy concerns arise from the potential for websites to collect information about users' running programs, potentially leading to personalized targeting and tracking across browsing sessions. On the security front, the identification of open ports can serve as an entry point for malicious attackers to gather information and target vulnerabilities within these programs. 
+
+\section{Identifying specific program states}
+
+Beyond determining the mere existence of open ports, the next step involves detecting specific application states. We investigated scenarios where an application's behavior might change its network requirements, leading to the opening of new ports. For instance, when initiating a video call within an application, does it dynamically open new ports to facilitate the communication, and more importantly, can we detect this change through browser-based port scanning? 
+
+\subsubsection{Motivation}
+
+If it becomes possible to detect specific application states, this would elevate user tracking to an advanced level. Websites would gain the capability to determine a user's ongoing activities on their computer, and subsequently, use that information to determine what content to display. This could involve showing different advertisements, presenting webpages tailored to the user's preferences, or, in more concerning scenarios, even creating custom phishing websites based on the user's recent actions.
+
+\subsubsection{Experiment Target}
+
+To investigate this, we selected a limited number of privacy-sensitive applications, and determined if we could detect specific application states, 
+such as being able to detect a voice call on Microsoft Teams, or sending/retrieving a text message on WhatsApp.
+
+\textbf{Applications:}
+\begin{itemize}
+    \item Microsoft Teams
+    \item Discord
+    \item WhatsApp
+    \item Telegram
+    \item Google Chrome
+    \item Firefox
+\end{itemize}
+
+\subsubsection{Experiment Result}
+
+Across the investigated applications, the same behavior was consistently measured regarding port activity and detectability:
+
+\textbf{Ephemeral Ports:} Applications consistently used ephemeral ports from the dynamic port range (49152-65535) for various activities, such as sending chat messages, initiating video calls, sharing files, collaborating on a document, and initiating file downloads. These ports were short-lived and changed with each instance, making it impossible to establish a direct connection between open ports and specific application states.
+
+\textbf{Port Detectability:} Despite the consistent use of ephemeral ports, these ports were undetectable through browser-based port scanning techniques. This lack of detectability is primarily due to the ports being in an established connection state, which means they were not actively listening for new connections. Consequently, attempts to identify these ports through browser-based port scanning proved ineffective.
+
+\subsubsection{Identifying mobile apps}
+
+While our research is not primarily focused on mobile applications, we conducted preliminary research to assess the viability of using browser-based port scanning to detect mobile applications. In an experiment, we evaluated 70 mobile apps on an Android 11 device, but we were unable to detect a single application through browser-based port scanning. 
+
+It is important to note that we do not consider our research to be definitive in concluding that browser-based port scanning is not a threat on mobile devices, as our study was not as comprehensive as it was for desktop applications. We do not see a reason why browser-based port scanning \emph{should} not be possible on mobile. However, it is worth noting that we did not encounter the same challenges when detecting the first application on desktop devices, as it required considerably less time to detect the first application on a desktop device.
+
+% \subsection{Video / Chat service}
+
+% In this category, we have chosen two widely used video and chat services: Microsoft Teams, a popular enterprise-grade software, and Discord, a popular consumer-grade software. Both of these platforms are well-known for their video and chat capabilities.
+
+% These two applications exhibit comparable functionalities: sending chat messages, initiating video calls, and exchanging files. Microsoft Teams has additional native integration with cloud services such as Office 365 applications and cloud storage. All the functionalities mentioned above necessitate network connectivity, and as a result, we have conducted scans to see if we can differentiate these application states using browser-based port scanning.
+
+% During a video call in Microsoft Teams, specific ports such as 55076 and 60449 were opened, but these ports could not be detected through browser-based port scanning. This is because the ports are in an established state, and not listening for new connections. Notably, making changes during the call, such as activating a camera, did not result in the opening of new ports. It is worth noting that even if these ports were detectable, this would not be very effective due to their ephemeral nature; they change with every session. In other words, the next time a video call is initiated, it will not be the same ports (55076 and 60449), but rather random ones within the dynamic port range (49152--65535) that will be opened.
+
+% Sending chat messages did not open any new ports. On the other hand, sharing files through Microsoft Teams did trigger the opening of several ports. Some of these were related to the Microsoft Teams platform, while others pertained to OneDrive, the underlying cloud-based file sharing service. However, similar to what was observed with video calls, all of these ports were short-lived and ephemeral, which means they varied with each instance. 
+
+% Consequently, this setup makes it extremely challenging to employ browser-based port scanning for fingerprinting these specific application states. This is because any application has the capability to utilize a port within the dynamic port range, and it is not possible to establish a direct connection between the open port and the underlying application through browser-based port scanning.
+
+% In the case of Discord, the same behavior was seen as in Microsoft Teams. Ephemeral ports were generated during video calls, and there was no discernible change in state when sending text messages. The only distinction was the absence of OneDrive-related ports opening during file sharing activities.
+
+% \subsection{Messaging Apps}
+
+% This category focuses on alternatives to desktop native communication apps such as Microsoft Teams and Discord. Here, we focus on mobile-first messaging applications through WhatsApp and Telegram. 
+
+% These applications can similarly send chat messages, initiate video calls, and share files. However, we differentiate them as they are mobile-first applications and are therefore designed differently. 
+
+% When sending a text message on these applications, we see the exact same behavior as before. An ephemeral port is opened within the dynamic port range (49152-65535), this port is undetectable through browser-based port scanning and different each time a message is sent. 
+
+% \subsection{Webbrowser}
+
+% This category focuses on web browsers, an interesting category due to the numerous existing fingerprinting techniques already applied to them. Our investigation within this category centers around determining whether web browsers open new local ports under specific scenarios: accessing a webpage, streaming a video, opening a new tab, and initiating file downloads. The focus is on the Google Chrome and Firefox browsers.
+
+% Our findings reveal that all the aforementioned actions, except for opening a new tab, result in new ports being opened within the dynamic port range. Typically, around 20 to 30 ports are opened. However, it is important to note that these ports are immediately in an established connection state and do not enter a state where they are actively listening for new connections. As a result, these ports remain undetectable through browser-based port scanning. Similar to the patterns observed in other categories, these ports are randomly selected from the dynamic port range and are ephemeral.
+
+
+% \subsection{Methodology}
+
+% To conduct this research, we followed a methodology similar to our previous approach. We selected a 
+% restricted number of applications from various categories and utilized the PowerShell \texttt{Get-NetUDPEndpoint} and \texttt{Get-NetTCPConnection} commands to analyze the local system. Whenever an action was executed within the application, we monitored for any new ports that became active. Subsequently, we used the port scanner application to probe these newly opened ports. This involved either directly utilizing the Fetch API or using timing attacks.
+
+% \subsection{Results}
+
+% Starting with the same with applications that were identified in Table~\ref{tab:identifying-applications}. When joining a voice channel on Discord, several TCP and UDP ports are opened locally on the system. The same behavior is seen when screen sharing. All ports opened are ephemeral and use a different port number every time, mostly within the 50000-65000 range. However, none of these ports were detected using the Fetch API or timing attacks. 
+
+% The Logitech G HUB application, used for Logitech peripherals, was detectable in a different states. When the application is updating, a new process lghub\_updater.exe is launched which opened port 22885. This port was also detectable through browser-based port scanning.

@@ -1,0 +1,84 @@
+@inproceedings{jonker2019,
+  author        = {Hugo Jonker and Benjamin Krumnow and Gabry Vlot},
+  title         = {Fingerprint surface-based detection of web bot
+			detectors},
+  booktitle     = {Proc.\ 24th European Symposium on Research in
+			Computer Security Part~II (ESORICS'19)},
+  publisher     = {Springer},
+  series        = {LNCS},
+  volume        = {11736},
+  year          = {2019},
+  pages         = {586--605},
+  preprint      = "http://www.open.ou.nl/hjo/papers/ESORICS19.pdf",
+  doi		= {10.1007/978-3-030-29962-0_28},
+  summary   = {Good starting paper to build upon. 
+           Paper researches techniques to detect bots (browser fingerprinting). 
+           
+           Reverse analysis of a commercial web bot detector was done. The following was found:
+           - Behaviour-based webbot detection: (js eventhandlers etc.)
+           - Code injection routines: allows the server to inject code based on bot detection
+           - DOM properties: Common DOM properties to detect bots/webdrivers
+           
+           https://github.com/fingerprintjs/fingerprintjs: popular fingerprinting tool
+           
+           New browser fingerprinting properties found, see table 2. 
+           A lot of deviations were found for different automation frameworks, especially when they run in headless mode.
+           Several detection techniques: Headers, user-agent, request headers, window keys, document keys.
+           A scanner was developed based on OpenWPM to detect bots.
+           Interesting: 115k out of top 1m Alexa websites detect PhantomJS
+    } 
+}
+
+@inproceedings{krumnow2022,
+  title     = {How gullible are web measurement tools? A case study
+  		analysing and strengthening OpenWPM's reliability},
+  author    = {Krumnow, Benjamin and Jonker, Hugo and Karsch, Stefan},
+  booktitle = {Proc.\ 18th International Conference on emerging
+		  Networking EXperiments and Technologies (CoNEXT'22)},
+  publisher = {ACM},
+  pages     = {171--186},
+  year      = {2022},
+  preprint  = "http://www.open.ou.nl/hjo/papers/conext22.pdf",
+  doi	    = {10.1145/3555050.3569131},
+  summary = {Research does an in depth analysis on OpenWPM
+    - Research shows that bot detection is increasing rapidly
+    - Research shows that OpenWPM is easily detectable via several different techniques.
+    - Website categories such as shopping have a higher bot detection than others.
+    - Research shows how to bypass OpenWPM functionality such as JS invocations
+    - Research discusses several ways on how to improve OpenWPM to make it more reliable
+}
+}
+@mastersthesis{vlot2018,
+  title={Automated data extraction; what you see might not be what you get},
+  author={Vlot, Gabry},
+  year={2018},
+  school={Open University},
+  url={https://www.open.ou.nl/hjo/supervision/2018-g.vlot-msc-thesis.pdf}
+}
+
+@misc{selenium,
+  title = {Selenium: An open source automation testing framework},
+  howpublished = {\url{https://www.selenium.dev/}},
+  author = {Selenium},
+  year = {2023},
+  month = {April 24},
+  note = {Accessed: April 29, 2023},
+}
+
+@misc{chromedriver_bug,
+  title = {{ChromeDriver Bug Tracker: Issue 3220}},
+  author = {Chromium},
+  howpublished = {\url{https://bugs.chromium.org/p/chromedriver/issues/detail?id=3220}},
+  year = {2019},
+  month = {November 10},
+  note = {Accessed: April 29, 2023},
+}
+
+@misc{openwpm_github,
+  title = {{OpenWPM GitHub Repository}},
+  author = {OpenWPM},
+  howpublished = {\url{https://github.com/openwpm/OpenWPM}},
+  year = {2023},
+  month = {January 31},
+  note = {Accessed: April 29, 2023},
+}

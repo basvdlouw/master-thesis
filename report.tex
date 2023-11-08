@@ -1,5 +1,4 @@
 \documentclass{ou-report}
-\citestyle{agu}
 
 % Dit template is gemaakt door P.J. Molijn in het kader van zijn afstuderen aan de OU in 2014.
 % Waarvoor hartelijk dank.
@@ -13,10 +12,13 @@
 %pdfkeywords={keyword1, keyword2}
 %}
 
+\setlist{nosep}
+
 \begin{document}
+\newcommand{\todo}[1]{{\color{red} #1}}
 \pagestyle{plain}
-\title{Dit is de titel van mijn afstudeerverslag}
-\author{Ik ben de auteur}
+\title{Browser-based port scanning}
+\author{ing. Bas van de Louw}
 %Title of the thesis
 %\title[Subtitle]{Title}
 %\author{author}
@@ -69,30 +71,39 @@
 
 \input{introduction/introduction}
 
-\input{problem/problem}
-
 \input{method/method}
+
+\input{background/background}
 
 \input{relatedwork/relatedwork}
 
-\input{results/results}
+\input{port_scanning_techniques/port_scanning_techniques}
+
+\input{fingerprinting_applications/fingerprinting_applications}
+
+\input{entropy/entropy}
 
 \input{conclusion/conclusion}
 
-\input{discussion/discussion}
-
-\backmatter{}
-\pagenumbering{roman}
-
+%% \backmatter{}
 \input{reflection/reflection}
 
-\bibliographystyle{plainnat}
-\bibliography{report}
+\bibliographystyle{alpha}
+
+\bibliography{report,
+introduction/references/user_privacy,
+introduction/references/port_scanning,
+relatedwork/references/bot_detection, relatedwork/references/browser_fingerprinting, relatedwork/references/cloaking, 
+relatedwork/references/port_scanning,
+port_scanning_techniques/references/port_scanning_techniques,
+entropy/entropy
+}
+
 
 %% Use letters for the chapter numbers of the appendices.
 %\appendix
 \appendix
-%  \input{Appendices/appendix-a}
+\input{appendices/appendix-a}
 %  \input{Appendices/appendix-b}
 %  \input{Appendices/appendix-c}
 

@@ -1,20 +1,67 @@
-\chapter{Research}
-Start by copying everything about your research questions from your VAF. Always rewrite this chapter after you have finished your research results. Often, you will find that you did answer slightly different questions than you thought out before.
+\chapter{Research Questions}
 
-\section{Research questions}
-In the introduction, you described the overall goal of your research.
-Here, you formulate your research questions, and you explain them.
+While there has been extensive research on browser fingerprinting, research on browser-based port scanning is lagging behind. Scanning for open ports may take user-tracking to a new level, as individual applications can be detected by a website, leading to specific user profiles and thereby several privacy implications. Therefore, this paper aims to explore the subject of browser-based port scanning as a user-tracking technique, with the following main research question:
 
-Note that your research questions must be formulated in such a way that you will be able to give meaningful answers in the conclusions of your thesis. The results you have produced must contain the answers to these questions.
+\begin{quote}
+\textbf{What information can websites extract from clients via browser-based port scanning?}
+\end{quote}
 
-In most cases, one main research question with several subquestions works best.
+% Start by copying everything about your research questions from your VAF. Always rewrite this chapter after you have finished your research results. Often, you will find that you did answer slightly different questions than you thought out before.
 
-\section{Research method}
-Here, you describe the method that you used to find answers to your questions. 
+% In the introduction, you described the overall goal of your research.
+% Here, you formulate your research questions, and you explain them.
 
-In general, it works well when you describe the method you use for each subquestion.  Therefore, you could opt for an alternative structure, by having subsections for each question, with the method described there as well.
+% Note that your research questions must be formulated in such a way that you will be able to give meaningful answers in the conclusions of your thesis. The results you have produced must contain the answers to these questions.
 
-\section{Validation}
-You should not only describe how you find answers to your research questions, but also how you validate your work: how you will (try to) prove that your answers are indeed ansers to your questions.
+% In most cases, one main research question with several subquestions works best.
 
-Again, you can explain that for each subquestion, or here, in a separate section.
+
+To answer the main research question, the following sub-questions have been formulated:
+
+\begin{enumerate}[RQ1.]
+
+\item \textbf{How to choose the optimal port-scanning technique for a specific victim client in combination with a specific attack goal?}
+
+The aim of this research question is to compare the efficacy and efficiency of different browser-based port scanning techniques, such as the JavaScript Fetch API, WebSocket API, and XHR API, across multiple browsers and operating systems. 
+
+Different JavaScript APIs may have access to distinct error messages or network responses that could be useful during port scanning. Additionally, the WebRTC API may have access to UDP ports, while the WebSocket API does not. Moreover, certain browsers may block specific port scanning types, while others may have varying levels of security or functionality that could impact the scan's success. 
+
+Furthermore, different scanning techniques may be more useful depending on the attack goal, such as scanning for specific ports, versus enumerating the entire port range. A port scanner application should adapt to the victim's client by detecting the OS and browser, and applying the most effective scanning technique.
+
+Therefore, these techniques will be tested on different browsers and operating systems to identify the most effective methods for browser-based port scanning. This research question will provide a significant scientific contribution, since browser-based port scanning techniques have not been explored in-depth before. There is little research available on scanning techniques, and it is therefore unknown what the limitations and potential of browser-based port scanning is. Furthermore, the scans must be efficient to be a realistic attack vector in practice, and finding the balance between efficiency and effectiveness is a crucial aspect to consider. The outcome of this study will serve as a starting point for future research and will also lay the groundwork for RQ2 and RQ3.
+
+\item \textbf{What information can browser-based port scanning reveal about the underlying operating system?}
+The objective of this research question is to investigate what information can be obtained about the underlying operating system (OS) through browser-based port scanning. The results of a port scan can reveal which ports are open or closed, and this information can be used to infer certain details about the system. For instance, the open ports may correspond to specific services running on the system, and this information can be used to determine the OS or potentially even specific versions of software that is being used. 
+
+Additionally, the responses to specific port scans may reveal clues about the configuration of the system, such as the firewall rules or security settings that are in place. By analyzing the results of the port scan, this research will identify what type of information can be learned about the underlying operating system through browser-based port scanning. This research question will add to the existing research on browser fingerprinting techniques.
+
+\item \textbf{What information can browser-based port scanning reveal about specific programs running locally on a user's system?} The purpose of this research question is to collect data using the most effective techniques identified from RQ1 to identify applications running locally on a user's system. Certain applications might listen on specific ports, and by scanning for those ports, a website might be able to identify which applications are running on the user's system.
+
+By collecting this data, the research will be able to identify which applications can be detected using browser-based port scanning. Additionally, different application states will be tested to see if port scanning can be used to detect specific application states. For example, a video chat application will open a port to chat with other participants, and this might be detectable through port scanning. The scientific contribution of this research is to explore a more comprehensive user-tracking technique that has the potential to take user-tracking to a new level by identifying running applications and even specific application states.
+
+\item \textbf{How unique are browser-based port scanning fingerprints?}
+While previous research has extensively examined the uniqueness of browser fingerprints, the specific context of browser-based port scanning has not been considered within these analyses. This research question seeks to expand upon the existing body of literature by evaluating the uniqueness of browser-based port scanning fingerprints.
+
+Fingerprints, in the context of web browsing, possess the potential to be highly unique, posing a direct threat to user anonymity and privacy on the internet. Consequently, it is crucial to estimate the true level of distinctiveness that browser fingerprints can exhibit, which we argue has not been fully researched to this day, as the inclusion of browser-based port scanning fingerprints has never been included within these assessments, even though there are 65535 ports on an IP address that can be either open or closed.
+\end{enumerate}
+
+
+% \section{Limitations}
+
+% There are some limitations to consider. One of the limitations is the focus solely on desktop devices rather than other devices, such as mobile devices. This is mainly due to time constraints and the complexity involved in studying multiple device types. However, it is important to note that there may be differences in how port scanning behaves on different devices, and future research could explore this further. While the research plans to explore the differences between different operating systems, such as Windows, Linux and macOS, testing on different hardware configurations will be limited.
+
+% Another limitation to consider is that the research does not focus on potential security risks associated with local port scanning. While it is possible that port scanning could be used for malicious purposes, the primary focus of this research is on privacy concerns. Ethics and legality are not a primary focus of this research either. While it is important to consider the ethical and legal implications of any research study, the primary focus of this research is on user privacy and the behavior of browser-based port scanning. Finally, the study does not examine how often browser-based port scanning occurs in practice, as this has already been researched by Kuchal and Li~\cite{kuchhal2021}. 
+
+% The research questions have focused on the information that can be obtained through browser-based port scanning, such as exploring various scanning techniques, identifying fingerprinting possibilities, and detecting running applications. However, the study has not yet validated the research in a real-world setting. Therefore, a potential topic for future research involves conducting a large-scale user study to assess the effectiveness and potential for user-tracking.
+
+% \section{Research method}
+
+
+% Here, you describe the method that you used to find answers to your questions. 
+
+% In general, it works well when you describe the method you use for each subquestion.  Therefore, you could opt for an alternative structure, by having subsections for each question, with the method described there as well.
+
+% \section{Validation}
+% You should not only describe how you find answers to your research questions, but also how you validate your work: how you will (try to) prove that your answers are indeed ansers to your questions.
+
+% Again, you can explain that for each subquestion, or here, in a separate section.

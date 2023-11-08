@@ -12,8 +12,8 @@
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ExecuteOptions{english}
 \ProcessOptions\relax
-
 \LoadClass[12pt]{book}
+\RequirePackage{float}
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
 %% English is the default language, but this can be changed to Dutch by
@@ -25,13 +25,19 @@
     %% the title page.
     \RequirePackage[dutch,english]{babel}
 \fi
+\RequirePackage{changepage}
+\RequirePackage[shortlabels]{enumitem}
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+\RequirePackage{xurl}
 \RequirePackage[nooneline,footnotesize]{caption}
 \RequirePackage{fancyhdr}
 \RequirePackage[flushmargin,hang]{footmisc}
 \RequirePackage{ifpdf}
 \RequirePackage{ifxetex}
 \RequirePackage{metalogo}
-\RequirePackage[sort&compress]{natbib}
+\RequirePackage[resetlabels,labeled]{multibib}
+% \RequirePackage[sort&compress]{natbib}
 \RequirePackage{tikz}
 \RequirePackage[noindentafter]{titlesec}
 \RequirePackage{titletoc}
@@ -509,8 +515,8 @@
 \renewcommand*\labelitemiv{\color{title}\textperiodcentered}
 
 %% Use a custom bibliography style based on apsrev4-1.
-%\bibliographystyle{ou-report}
-%\bibliographystyle{alpha}
+% \bibliographystyle{ou-report}
+% \bibliographystyle{alpha}
 % styles: apacite, abbrv, acm, alpha, apalike, ieeetr, plain, siam and unsrt.
 
 %% Hyperlinks are title color, except in print mode, when they are all black.
