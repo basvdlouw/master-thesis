@@ -11,7 +11,7 @@
 \section{Browser Fingerprinting}
 \label{browser-fingerprinting}
 
-Browser fingerprinting is a well-known technique that has garnered significant attention, thanks to Eckersley's pioneering work in bringing the issue to the forefront~\cite{eckersley2010}. Eckersley developed an algorithm capable of identifying a browser fingerprint with an accuracy of 83.6\%, and it could also detect changes in the fingerprint with 99.1\% accuracy. Subsequent studies have focused on exploring various properties that can be utilized for re-identification, including IP address and user-agent~\cite{yen2012}, fingerprinting the HTML5 canvas~\cite{mowery2012}, detection of installed fonts, timezone, and screen resolution~\cite{boda2012}, as well as measuring the timing of the JavaScript engine execution~\cite{mowery2011}~\cite{rokicki2021}, among others.
+Browser fingerprinting is a well-known technique that has garnered significant attention, thanks to Eckersley's pioneering work in bringing the issue to the forefront~\cite{eckersley2010}. Eckersley developed an algorithm capable of identifying a browser fingerprint with an accuracy of 83.6\%, and it could also detect changes in the fingerprint with 99.1\% accuracy. Subsequent studies have focused on exploring various properties that can be utilized for re-identification, including IP address and user-agent~\cite{yen2012}, fingerprinting the HTML5 canvas~\cite{mowery2012}, detection of installed fonts, time zone, and screen resolution~\cite{boda2012}, as well as measuring the timing of the JavaScript engine execution~\cite{mowery2011}~\cite{rokicki2021}, among others.
 
 Nikiforakis et al.~\cite{nikiforakis2013}, Laperdrix et al.~\cite{laperdrix2016} and Gomez et al.~\cite{gomez2018} have further investigated the practical usage of these techniques, showcasing that this is a real threat to user privacy on the internet. Building upon this research, our paper aims to introduce a fingerprinting technique through browser-based port scanning, focusing on an area with limited existing literature.
 
@@ -60,7 +60,7 @@ Web automation bots such as Selenium~\cite{selenium} are frequently used for lar
 Jonker et al.~\cite{jonker2019} reverse engineered a commercial bot detector and discovered several techniques employed in detecting these bots.
 
 \begin{itemize}
-    \item Behaviour-based web automation bot detection: Multiple event handlers were added to JavaScript events, such as clicks, mouse movements, a device's orientation, motion, keyboard and touch events.
+    \item Behavior-based web automation bot detection: Multiple event handlers were added to JavaScript events, such as clicks, mouse movements, a device's orientation, motion, keyboard and touch events.
     \item Code injection routines: Frequent communication with the first party server was found. Within this traffic, fingerprinting information was found. This would allow the server to carry out additional server-side bot detection. After identification, bot-specific code can be injected.
     \item DOM properties: Multiple built-in objects and functions were accessed via JavaScript. Additionally, code was found to scan for bot-only properties, such as the \\\verb|document.$cdc_asdjflasutopfhvcZLmcfl_| property --- a property specific to the ChromeDriver.
     This is known by the Chromium team, but currently marked as a \emph{won't fix} issue, stating that if a website owner wants to block automation tools, they respect their decision~\cite{chromedriver_bug}.
