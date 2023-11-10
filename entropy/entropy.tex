@@ -41,8 +41,9 @@ Where:
 
 This number arises from the fact that there are 65,535 ports available on a system, and each of these ports can either be open (1) or closed (0), resulting in a binary representation of open and closed ports for each combination. Theoretically, this allows for an immense number of unique port combinations, and thereby a very high entropy.
 
-However, in practice, achieving this theoretical limit is neither feasible nor realistic, primarily due to common software usage patterns, limited concurrent applications, and the time it takes to scan the entire port range.
+However, in practice, achieving this theoretical limit is neither feasible nor realistic, primarily due to common software usage patterns, limited concurrent applications, and the time it takes to scan the entire port range. 
 
+Note that this theoretical limit pertains to the distinctiveness of fingerprinting a single IP address. In theory, browser-based port scanning could extend to multiple IP addresses, resulting in an even more unique fingerprint. Nevertheless, fully scanning a single IP address is already a highly time-intensive and impractical task in most scenarios. Consequently, we do not consider it realistic to scan multiple IP addresses in a real-world attack.
 \subsubsection{Realistic Expectations}
 
 In practice, achieving the full spectrum of possible port combinations is neither practical nor realistic. Several factors contribute to this:
@@ -144,7 +145,7 @@ We use a systematic approach to investigate the relationship between data distri
 
 \subsubsection{Generation of Synthetic Fingerprint Datasets}
 
-In order to properly use Shannon's entropy formula, we have to consider \emph{all possible outcomes}. Calculating all possible outcomes with such a large dataset, i.e. $2^{1000} = 1.071509e+301$ takes too much time, and therefore we have two possible solutions to calculate entropy:
+In order to properly use Shannon's entropy formula, we have to consider \emph{all possible outcomes}. Calculating all possible outcomes with such a large dataset, i.e. $2^{1000} \approx 1.07 \times 10^{301}$ takes too much time, and therefore we have two possible solutions to calculate entropy:
 
 \begin{itemize}
     \item Sampling from the dataset, i.e. Monte Carlo simulations.

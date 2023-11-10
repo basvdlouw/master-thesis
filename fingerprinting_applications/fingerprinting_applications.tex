@@ -50,7 +50,7 @@ The experiment was based on default installations of Windows 11 and Ubuntu 22.0.
 
 \subsubsection{Port Scanning}
 
-The browser-based port scanner application as discussed in the previous chapter was used to scan the entire port range (0-65536) for both default installations of Windows and Ubuntu.
+The browser-based port scanner application as discussed in Section~\ref{section:port-scanner-application} was used to scan the entire port range (0-65536) for both default installations of Windows and Ubuntu.
 
 \subsubsection{Service Activation and Port Monitoring}
 
@@ -58,7 +58,7 @@ To systematically activate network-related services within the operating systems
 
 \begin{itemize}
     \item On Windows, we methodically enabled every available Windows feature and enabled settings that may require network connectivity, such as Bluetooth, Devices, Phone Link, VPN and Remote Desktop Protocol. After each change, we monitored the status of the ports using the \emph{netstat} command and other command line directives.
-    \item On Ubuntu, we adopted a similar process, systematically enabling network-related services and monitoring if any new ports were opened.
+    \item On Ubuntu, we adopted a similar process, systematically enabling network-related services and settings, and monitoring if any new ports were opened.
 \end{itemize}
 
 \subsubsection{Verification of Port Openings}
@@ -230,7 +230,7 @@ The setup for the experiment is similar to fingerprinting the underlying OS.
 \begin{enumerate}
     \item \textbf{Launching the Programs}: For each target program, a repeatable verification process was carried out. This process involved launching the application and using PowerShell directives, namely \texttt{Get-NetUDPEndpoint} and \texttt{Get-NetTCPConnection}, to determine if the application had opened any local ports.
     
-    \item \textbf{Verifying Detectable Ports}: Browser-based port scanning was used to verify if any of the newly opened ports were detectable. Additionally, response times were measured for post-scan analysis.   
+    \item \textbf{Verifying Detectable Ports}: The browser-based port scanner application as discussed in Section~\ref{section:port-scanner-application} was used to verify if any of the newly opened ports were detectable. Additionally, response times were measured for post-scan analysis.   
 
     \item \textbf{Verifying Detectability Through Timing Attacks}: Response times were compared to closed ports, in order to verify whether ports were detectable through timing measurements.
 \end{enumerate}

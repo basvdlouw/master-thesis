@@ -93,6 +93,7 @@ While Fetch and XHR are similar in functionality, WebSockets are not built on to
 Having established the availability of three scanning techniques via the XHR, Fetch, and WebSocket APIs, we created an experiment to compare these techniques based on several metrics.
 
 \subsection{Application design}
+\label{section:port-scanner-application}
 
 A client-side TypeScript web application was developed to facilitate a comparative analysis of these three JavaScript APIs. The application's design was guided by specific considerations outlined below, aimed at optimizing its functionality and applicability for forthcoming chapters.
 
@@ -259,6 +260,7 @@ In order to address the motivations outlined above, the experiment targets the f
   \item \textbf{Measurement of Accuracy}: To assess accuracy, the scan results are compared against a reference set of known open and closed ports.
 \end{itemize}
 
+The parameters for the experiments can be found in Appendix~\ref{appendix:expirement-parameters}
 
 
 % \subsection{Experiment Setup}
@@ -451,7 +453,8 @@ Unsafe or restricted ports refer to a range of TCP/UDP ports that are reserved f
 
 The motivation behind this experiment was to identify the most effective scanning technique for browser-based port scanning. We aimed to determine which of the three scanning techniques -- Fetch API, XHR, and WebSocket API -- offers the highest accuracy in detecting open ports.
 
-Based on our analysis, it is evident that the Fetch API excels across all platforms (OS/Browser combinations) and stands as the superior choice for browser-based port scanning. This API enables us to scan for open ports and directly determine their status, eliminating the need for post-scan analysis or the use of timing attacks.
+Based on our analysis, it is evident that the Fetch API excels across all platforms (OS/Browser combinations) and stands as the superior choice for browser-based port scanning. 
+This API enables us to scan for open ports and directly determine their status, eliminating the need for post-scan analysis or the use of timing attacks when scanning for ports running HTTP.
 
 
 \section{Experiment 3: Estimating the most efficient scanning technique}
@@ -703,7 +706,7 @@ In conclusion, this experiment has provided valuable insights into optimizing th
 
 % Determining the optimal socket timeout setting is relatively simple. The timeout should be as low as possible while maintaining accuracy. We noticed that a socket timeout of less than 140 milliseconds led to a loss of accuracy on Chrome, resulting in the detection of fewer than 100 open ports. Hence, based on our findings, we conclude that the optimal socket timeout setting for Chrome is roughly 150ms. For Firefox this is less efficient, as we saw a loss of accuracy on 390ms, therefore we conclude that the optimal socket timeout for Firefox is roughly 400ms. 
 
-\section{Conclusion}
+\section{Experiments Conclusions}
 
 The experiments have resulted in the identification of optimal socket configuration settings for browser-based port scanning. Specifically, it is recommended to utilize a socket timeout of 150ms for Chrome and 400ms for Firefox. For Ubuntu, the most effective number of parallel connections is approximately 10, while on Windows, an increased number of parallel connections, up to 250, is advised. However, due to the associated operational impact on webpage usability, a more practical range of 100-150 parallel connections is recommended for real-world attack scenarios, contingent upon the specific webpage characteristics. 
 
