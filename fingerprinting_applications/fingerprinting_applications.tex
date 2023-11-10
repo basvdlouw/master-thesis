@@ -50,7 +50,7 @@ The experiment was based on default installations of Windows 11 and Ubuntu 22.0.
 
 \subsubsection{Port Scanning}
 
-The browser-based port scanner application as discussed in the previous chapter was used to scan the entire port range (0-65536) for both default installations of Windows and Ubuntu 22.04.
+The browser-based port scanner application as discussed in the previous chapter was used to scan the entire port range (0-65536) for both default installations of Windows and Ubuntu.
 
 \subsubsection{Service Activation and Port Monitoring}
 
@@ -99,17 +99,25 @@ Additionally, Windows contains a default mapping of well-known ports in the
 
 \texttt{\%WINDIR\%\textbackslash System32\textbackslash drivers\textbackslash etc\textbackslash services} file, including approximately 100–135 ports outside the restricted range, which can serve as a foundation for targeted scans.
 
+Aside from Windows features, there are standard settings that may be enabled or disabled on Windows. We tested for open ports (outside the restricted range) on settings that require network connectivity, such as Bluetooth, Devices, Phone Link, VPN and Remote Desktop Protocol.
+
+Among these, VPN and Remote Desktop Protocol (RDP) exhibited noteworthy findings. While a VPN connection might not be detectable by itself, our tests involving ExpressVPN revealed an interesting aspect. The ExpressVPN application seemed to open port 2020, which we could consistently detect while the VPN was active. This implies that although the Windows OS doesn't inherently trigger the opening of a specific port upon VPN configuration, the VPN application itself does so.
+
+Regarding Remote Desktop Protocol (RDP), establishing a connection to a remote machine doesn't appear to expose any open ports on the host machine. However, on the machine to which the connection is made, we were able to identify the presence of an active RDP connection. While the Fetch API doesn't directly identify that the RDP port (3389) is open, we managed to determine that the port was open via a timing attack. This approach enables us to detect the open port consistently. This finding suggests that browser-based port scanning remains a viable method for detecting remote access tools, similar to the technique employed by eBay in 2020~\cite{ebay_port_scans}.
+
 \subsubsection{Fingerprinting Ubuntu 22.04}
 
 In our examination of a default installation of Ubuntu 22.04, we consistently found port 631 to be open. This port corresponds to the Common Unix Printing System (CUPS), a printer software driver.
+Besides CUPS, we did not find other services that were detectable through browser-based port scanning after enabling several network-related services, similarly to Windows.
 
-Like Windows, Ubuntu maintains a \texttt{/etc/services} file, mapping 326 well-known ports to services. While most of these ports fall within the restricted range, approximately 150–180 ports are outside it, providing a basis for fingerprinting different Ubuntu OS configurations.
+However, like Windows, Ubuntu maintains a \texttt{/etc/services} file, mapping 326 well-known ports to services. While most of these ports fall within the restricted range, approximately 150–180 ports are outside it, providing a basis for fingerprinting different Ubuntu OS configurations.
 
 \subsection{Analysis}
 
 For Windows 11, specific Windows features and network-related settings result in detectable open ports. Enabling features like Hyper-V and Internet Information Services (IIS) resulted in identifiable open ports, making them valuable indicators for distinguishing different Windows configurations. 
 
-In the case of Ubuntu 22.04, the consistent presence of port 631 associated with CUPS simplifies the identification of default Ubuntu installations.  While it may not guarantee a 100\% accuracy in OS fingerprinting, its integration with existing techniques improves the reliability of the OS fingerprint. 
+In the case of Ubuntu 22.04, the consistent presence of port 631 associated with CUPS simplifies the identification of default Ubuntu installations. 
+Simply scanning port 631 will be enough to detect a default Ubuntu installation. While it may not guarantee a 100\% accuracy of the OS fingerprint, another service could be running on port 631, or CUPS could be running on a different OS, its integration with existing techniques improves the reliability of the OS fingerprint. 
 
 The \texttt{/etc/services} file found on both Windows and Ubuntu can be used for a targeted scan on a system, after detecting which OS is making the request. All ports within the \texttt{/etc/services} file can be scanned in one second, making it a realistic enhancement to existing fingerprinting techniques.  
 
