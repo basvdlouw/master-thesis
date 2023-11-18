@@ -1,6 +1,7 @@
 \chapter{Conclusions and Discussion}
 
-In this document, we researched browser-based port scanning and  drew the following conclusions based on our findings.
+In this document, we researched browser-based port scanning and drew the following conclusions based on our findings: 
+\\
 
 \textbf{RQ1: How to choose the optimal port-scanning technique for a specific victim client in combination with a specific attack goal?}
 
@@ -9,22 +10,24 @@ We measured significant variations between different operating systems and scann
 A notable contrast was observed between Ubuntu and Windows. Ubuntu tended to time out network requests whenever possible, whereas Windows adhered to the configured socket timeout settings. This characteristic made browser-based port scanning considerably more efficient on Ubuntu.
 
 We estimate that on Windows/Chrome, which is the most popular combination of OS/Browser, it is possible to scan 1000 ports within one second (2500+ on Ubuntu). This makes browser-based port scanning a practical real-world attack on virtually any web page. This is especially concerning because the scanning process can continue throughout a user's entire session on the website, which usually lasts much longer than just one second. 
+\\
 
-\textbf{RQ2: What information can browser-based port scanning reveal about the underlying
-operating system?}
+\textbf{RQ2: What information can browser-based port scanning reveal about the underlying operating system?}
 
 We found that operating systems by default do not expose ports that can be revealed through a browser, with the exception of CUPS on Ubuntu. Most OS ports fall under the restricted range and cannot be detected through browser-based port scanning. However, both Windows and Ubuntu host a \texttt{/etc/services} file which contains a mapping between ports and OS services. This mapping can be used as a foundation for a targeted scan to fingerprint the underlying OS.
+\\
 
 \textbf{RQ3: What information can browser-based port scanning reveal about specific programs
 running locally on a user’s system?}
 
-Unlike OS fingerprinting, fingerprinting specific programs is more effective. We found many programs from different categories that open a distinct port on the local system, which can be revealed through browser-based port scanning. 
-
+Unlike OS fingerprinting, fingerprinting specific programs is more effective. 
+We found many programs from different categories that open a distinct port on the local system, which can be revealed through browser-based port scanning. 
 We argue that browser-based port scanning can be used to track users by identifying open ports corresponding to specific applications, and is thereby a direct threat to user privacy/anonymity on the internet, especially when combined with known fingerprinting techniques.
 
 When we can successfully identify open ports and the associated programs, it provides a detailed user profile that can be used for a multitude of purposes. These can include personalized web pages.
 Additionally, this information could be exploited to scan for known exploits of specific programs. 
 In essence, the knowledge gained from these open ports not only undermines user privacy, but also establishes a foundation for a range of potentially malicious activities.
+\\
 
 \textbf{RQ4: How unique are browser-based port scanning fingerprints?}
 
@@ -58,7 +61,6 @@ While not a focus of this paper, the threats to security are also a significant 
 The only real benefit to accessing the local network would be a website integrating with its native desktop application. Explicitly granting this permission should not be a problem. This is already required for many other resources accessed by the browser, such as microphones and cameras.
 
 The Brave browser has already implemented this functionality on both their Desktop and mobile browser\footnote{https://brave.com/privacy-updates/27-localhost-permission/}. We argue that more mainstream browsers such as Google Chrome, Firefox, Safari and Microsoft Edge should adopt this change and give users more control over their privacy. 
-
 West and Rigoudy~\cite{rigoudy2023} have worked on a draft specification to prevent unauthorized private network access from the public internet. While this specification is still in draft and not on track to be a W3C standard, we think it should be. 
 
 The principle of least privilege is becoming more popular in modern software architecture. Software developed (i.e. browsers) for end users should embrace this principle. By adopting the principle of least privilege, software can ensure that users are protected by default, rather than exposed to external threats by default, making it clear that the opt-in approach should be the standard for safeguarding user security and privacy.
@@ -73,11 +75,9 @@ The principle of least privilege is becoming more popular in modern software arc
 \subsubsection{Real-world validation}
 
 As we have demonstrated that browser-based port scanning can be used to enhance existing fingerprinting methods and create unique fingerprints, a logical follow-up would be to assess its potential for user-tracking in a real world setting.
-
 The ability to identify and track individuals across various online services and platforms has far-reaching consequences, affecting not only personal privacy but also the potential for data abuse and exploitation.
 
 Existing fingerprinting techniques can already identify users up to a certain point. However, as demonstrated in previous chapters, browser-based port scanning can enhance the uniqueness of existing fingerprinting techniques, and can thereby increase the capabilities of user-tracking.
-
 To evaluate the potential of browser-based port scanning in this regard, conducting a large-scale user study becomes necessary. Such a study would gauge the effectiveness of user-tracking capabilities in a real world setting, when browser-based port scanning is incorporated with existing fingerprinting techniques.
 
 \subsubsection{Scanning private networks}

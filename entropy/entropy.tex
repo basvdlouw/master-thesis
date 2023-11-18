@@ -14,12 +14,10 @@ The primary objective of this chapter is to analyze and compare the entropy of s
 
 The core motivation driving this research is user privacy, particularly user anonymity. As digital fingerprinting techniques continue to advance, the granular details of a user's device, such as the number and identity of open ports, can be key factors in influencing fingerprint complexity. The loss of anonymity, resulting from increased entropy and uniqueness, has potential consequences ranging from unwarranted user profiling to intrusive tracking.
 
-Existing research~\cite{gomez2018}~\cite{laperdrix2016}~\cite{eckersley2010} has already contributed to determining the entropy of various browser attributes that can be used for fingerprinting. Our objective is to assess the entropy associated with browser-based port scanning, as we believe that browser-based port scanning might be an exceptionally distinctive and often overlooked attribute that can be extracted from a web browser, adding valuable insights to this ongoing research.
-
+Existing research~\cite{gomez2018,laperdrix2016,eckersley2010} has already contributed to determining the entropy of various browser attributes that can be used for fingerprinting. Our objective is to assess the entropy associated with browser-based port scanning, as we believe that browser-based port scanning might be an exceptionally distinctive and often overlooked attribute that can be extracted from a web browser, adding valuable insights to this ongoing research.
 Highly unique fingerprints are a threat to user privacy, with the biggest threat being user anonymity. When fingerprints are so distinct that they can be directly linked to specific individuals on a one-to-one basis, the very notion of maintaining anonymity becomes impossible.
 
 Anonymity is important because it provides individuals with a safe way to act, transact, and participate without fear of accountability or reprisal. It encourages freedom of expression, enables people to seek help for stigmatized issues, protects children from online threats, and supports valuable institutions like peer review and whistle-blowing. 
-
 The value of anonymity lies in the ability to remain unreachable, preventing others from demanding explanations or punishments. While in the past, anonymity was often achieved through namelessness, it is the concept of unreachability that is at the heart of its significance, as it safeguards individuals from unwanted consequences and ensures the protection of certain forms of expression and transactions~\cite{nissenbaum1999}.
 
 \section{Background}
@@ -85,9 +83,9 @@ To investigate the relationship between data distribution and fingerprint unique
 
 \subsubsection{Geometric Distribution}
 
-The Geometric distribution is chosen to model the likelihood of ports being open based on a decreasing geometric progression. This distribution reflects a scenario where some ports are more popular than others, and are therefore more frequently open. The Geometric distribution allows us to simulate a situation where a few ports dominate in terms of usage.
+The Geometric distribution is chosen to model the likelihood of ports being open based on a decreasing geometric progression. This distribution reflects a scenario where some ports are more popular than others, and are therefore more frequently open. The Geometric distribution as depicted in Figures~\ref{fig:geometric_distribution_1000} and~\ref{fig:geometric_distribution_10000}, allows us to simulate a situation where a few ports dominate in terms of usage.
 
-\begin{figure}[H]
+\begin{figure}[h]
 \begin{adjustwidth}{-3cm}{-1cm}
 \centering
 \begin{minipage}{.45\textwidth}
@@ -111,7 +109,7 @@ The Zipf distribution is another candidate to represent the distribution of open
 
 This distribution aligns the most with our limit dataset. We believe that a distribution resembling the Zipf or Geometric distribution is more plausible in a real-world scenario. This is because certain software applications are more prevalent than others and tend to dominate in terms of usage. Additionally, the fact that many applications cannot be detected through browser-based port scanning further increases the likelihood of these popular applications being even more prevalent.
 
-\begin{figure}[H]
+\begin{figure}[h]
 \begin{adjustwidth}{-3cm}{-1cm}
 \centering
 \begin{minipage}{.45\textwidth}
