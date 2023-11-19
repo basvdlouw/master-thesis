@@ -1,5 +1,9 @@
 \documentclass{ou-report}
-
+\newcites{scientific}{Scientific References}
+\newcites{technical}{Technical Reports}
+\newcites{regulatory}{Regulatory and Legal Documents}
+\newcites{artifact}{Artifacts}
+\newcites{article}{Articles}
 % Dit template is gemaakt door P.J. Molijn in het kader van zijn afstuderen aan de OU in 2014.
 % Waarvoor hartelijk dank.
 % Minieme maar belangrijke wijzigingen zijn aangebracht door E.M. van Doorn
@@ -88,9 +92,24 @@
 %% \backmatter{}
 \input{reflection/reflection}
 
-\bibliographystyle{alpha}
+% styles: apacite, abbrv, acm, alpha, apalike, ieeetr, plain, siam and unsrt.
+% \bibliographystyle{alpha}
+\bibliographystylescientific{alpha}
+\bibliographystyleartifact{alpha}
+\bibliographystylearticle{alpha}
+\bibliographystyletechnical{alpha}
+\bibliographystyleregulatory{alpha}
 
-\bibliography{report,
+% \bibliography{report,
+% introduction/references/user_privacy,
+% introduction/references/port_scanning,
+% relatedwork/references/bot_detection, relatedwork/references/browser_fingerprinting, relatedwork/references/cloaking, 
+% relatedwork/references/port_scanning,
+% port_scanning_techniques/references/port_scanning_techniques,
+% entropy/entropy
+% }
+
+\bibliographyscientific{report,
 introduction/references/user_privacy,
 introduction/references/port_scanning,
 relatedwork/references/bot_detection, relatedwork/references/browser_fingerprinting, relatedwork/references/cloaking, 
@@ -99,6 +118,41 @@ port_scanning_techniques/references/port_scanning_techniques,
 entropy/entropy
 }
 
+\bibliographyartifact{report,
+introduction/references/user_privacy,
+introduction/references/port_scanning,
+relatedwork/references/bot_detection, relatedwork/references/browser_fingerprinting, relatedwork/references/cloaking, 
+relatedwork/references/port_scanning,
+port_scanning_techniques/references/port_scanning_techniques,
+entropy/entropy
+}
+
+\bibliographyarticle{report,
+introduction/references/user_privacy,
+introduction/references/port_scanning,
+relatedwork/references/bot_detection, relatedwork/references/browser_fingerprinting, relatedwork/references/cloaking, 
+relatedwork/references/port_scanning,
+port_scanning_techniques/references/port_scanning_techniques,
+entropy/entropy
+}
+
+\bibliographyregulatory{report,
+introduction/references/user_privacy,
+introduction/references/port_scanning,
+relatedwork/references/bot_detection, relatedwork/references/browser_fingerprinting, relatedwork/references/cloaking, 
+relatedwork/references/port_scanning,
+port_scanning_techniques/references/port_scanning_techniques,
+entropy/entropy
+}
+
+\bibliographytechnical{report,
+introduction/references/user_privacy,
+introduction/references/port_scanning,
+relatedwork/references/bot_detection, relatedwork/references/browser_fingerprinting, relatedwork/references/cloaking, 
+relatedwork/references/port_scanning,
+port_scanning_techniques/references/port_scanning_techniques,
+entropy/entropy
+}
 
 %% Use letters for the chapter numbers of the appendices.
 %\appendix

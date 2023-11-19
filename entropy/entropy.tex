@@ -14,34 +14,25 @@ The primary objective of this chapter is to analyze and compare the entropy of s
 
 The core motivation driving this research is user privacy, particularly user anonymity. As digital fingerprinting techniques continue to advance, the granular details of a user's device, such as the number and identity of open ports, can be key factors in influencing fingerprint complexity. The loss of anonymity, resulting from increased entropy and uniqueness, has potential consequences ranging from unwarranted user profiling to intrusive tracking.
 
-Existing research~\cite{gomez2018,laperdrix2016,eckersley2010} has already contributed to determining the entropy of various browser attributes that can be used for fingerprinting. Our objective is to assess the entropy associated with browser-based port scanning, as we believe that browser-based port scanning might be an exceptionally distinctive and often overlooked attribute that can be extracted from a web browser, adding valuable insights to this ongoing research.
+Existing research~\citescientific{gomez2018,laperdrix2016,eckersley2010} has already contributed to determining the entropy of various browser attributes that can be used for fingerprinting. Our objective is to assess the entropy associated with browser-based port scanning, as we believe that browser-based port scanning might be an exceptionally distinctive and often overlooked attribute that can be extracted from a web browser, adding valuable insights to this ongoing research.
 Highly unique fingerprints are a threat to user privacy, with the biggest threat being user anonymity. When fingerprints are so distinct that they can be directly linked to specific individuals on a one-to-one basis, the very notion of maintaining anonymity becomes impossible.
 
 Anonymity is important because it provides individuals with a safe way to act, transact, and participate without fear of accountability or reprisal. It encourages freedom of expression, enables people to seek help for stigmatized issues, protects children from online threats, and supports valuable institutions like peer review and whistle-blowing. 
-The value of anonymity lies in the ability to remain unreachable, preventing others from demanding explanations or punishments. While in the past, anonymity was often achieved through namelessness, it is the concept of unreachability that is at the heart of its significance, as it safeguards individuals from unwanted consequences and ensures the protection of certain forms of expression and transactions~\cite{nissenbaum1999}.
+The value of anonymity lies in the ability to remain unreachable, preventing others from demanding explanations or punishments. While in the past, anonymity was often achieved through namelessness, it is the concept of unreachability that is at the heart of its significance, as it safeguards individuals from unwanted consequences and ensures the protection of certain forms of expression and transactions~\citescientific{nissenbaum1999}.
 
 \section{Background}
 
 \subsubsection{Theoretical Limitation}
 
-In theory, the number of possible open port combinations is constrained by the total number of ports available on a system, minus the number of restricted ports that cannot be detected. The formula to calculate the theoretical limit of unique open port combinations is:
+In theory, the number of possible open port combinations is constrained by the total number of ports available on a system. This results in $2^{65535}$ different combinations.
+This number arises from the fact that there are 65,535 ports available on a system, and each of these ports can either be open (1) or closed (0), resulting in a binary representation of open and closed ports for each combination. 
+Theoretically, this allows for an immense number of unique port combinations, and thereby a very high entropy.
 
-\[
-\text{Theoretical Limit} = 2^{65535 - n}
-\]
-
-Where:
-\begin{itemize}
-  \item \(\text{Theoretical Limit}\) represents the maximum number of unique open port combinations.
-  \item \(65535\) is the total number of ports available on a system.
-  \item \(n\) is the number of restricted ports that cannot be detected.
-\end{itemize}
-
-This number arises from the fact that there are 65,535 ports available on a system, and each of these ports can either be open (1) or closed (0), resulting in a binary representation of open and closed ports for each combination. Theoretically, this allows for an immense number of unique port combinations, and thereby a very high entropy.
-
-However, in practice, achieving this theoretical limit is neither feasible nor realistic, primarily due to common software usage patterns, limited concurrent applications, and the time it takes to scan the entire port range. 
-
-Note that this theoretical limit pertains to the distinctiveness of fingerprinting a single IP address. In theory, browser-based port scanning could extend to multiple IP addresses, resulting in an even more unique fingerprint. Nevertheless, fully scanning a single IP address is already a highly time-intensive and impractical task in most scenarios. Consequently, we do not consider it realistic to scan multiple IP addresses in a real-world attack.
+However, not all ports are detectable by a browser, restricted ports~\citetechnical{chrome_restricted_ports,firefox_restricted_ports} are not detectable, which is not a significant amount of ports, but still noteworthy.
+Additionally, achieving this theoretical limit is neither feasible nor realistic in practice, primarily due to common software usage patterns, limited concurrent applications, and the time it takes to scan the entire port range. 
+This theoretical limit pertains to the distinctiveness of fingerprinting a single IP address. In theory, browser-based port scanning could extend to multiple IP addresses, resulting in an even more unique fingerprint. 
+Nevertheless, fully scanning a single IP address is already a highly time-intensive and impractical task in most scenarios. 
+Consequently, we do not consider it realistic to scan multiple IP addresses in a real-world attack.
 \subsubsection{Realistic Expectations}
 
 In practice, achieving the full spectrum of possible port combinations is neither practical nor realistic. Several factors contribute to this:
@@ -62,7 +53,7 @@ To investigate the relationship between data distribution and fingerprint unique
 
 \subsubsection{Entropy Calculation}
 
-In order to assess the uniqueness of the different probability distributions, we calculate the entropy of the datasets using Shannon's entropy formula~\cite{shannons_entropy}. This formula quantifies the uncertainty or randomness in the dataset and is given by:
+In order to assess the uniqueness of the different probability distributions, we calculate the entropy of the datasets using Shannon's entropy formula~\citescientific{shannons_entropy}. This formula quantifies the uncertainty or randomness in the dataset and is given by:
 
 \[
 H(X) = -\sum_{i=1}^{n} p(x_i) \cdot \log_{2}(p(x_i))
@@ -289,7 +280,7 @@ In conclusion, our experiments show that browser-based port scanning is a realis
 
 One of the most important findings of this experiment is that regardless of the distribution used, we consistently observed high levels of entropy, indicating the potential for creating highly unique fingerprints through browser-based port scanning, within a short period of scanning time (< 1 second).
 
-This finding suggests that a fingerprint with an entropy of at least 9 can be generated within roughly one second of scanning. When combined with existing fingerprinting techniques, such as time zone, plugins, ad blocker, user-agent, fonts, screen resolution, etc., this results in a cumulative entropy that exceeds 50 bits of entropy~\cite{gomez2018}. Narayanan~\cite{narayanan201233} argues that an entropy of 33 bits is sufficient to uniquely identify users ($2^{33}$ = 8,59 billion), emphasizing the threat that browser-based port scanning poses to user anonymity on the internet.
+This finding suggests that a fingerprint with an entropy of at least 9 can be generated within roughly one second of scanning. When combined with existing fingerprinting techniques, such as time zone, plugins, ad blocker, user-agent, fonts, screen resolution, etc., this results in a cumulative entropy that exceeds 50 bits of entropy~\citescientific{gomez2018}. Narayanan~\citescientific{narayanan201233} argues that an entropy of 33 bits is sufficient to uniquely identify users ($2^{33}$ = 8,59 billion), emphasizing the threat that browser-based port scanning poses to user anonymity on the internet.
 
 In light of these findings, it is evident that browser-based port scanning can be a tool for user profiling and tracking, especially when combined with existing fingerprinting techniques. As such, it is imperative for users, and more importantly browser developers, to be aware of these threats and take proactive measures to prevent unauthorized local port scanning.
 

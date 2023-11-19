@@ -3,7 +3,10 @@
 \label{chapter:scanning-techniques-experiment}
 % ==========================================================================
 
-In this chapter, we present the results of several experiments that were conducted to estimate the most effective browser-based port scanning strategy for each combination of operating system and browser. 
+In this chapter, we present the results of three experiments that were conducted to estimate the most effective browser-based port scanning strategy for each combination of operating system and browser. 
+The first experiment focuses on estimating the optimal socket timeout setting, this experiment focuses on finding a balance between efficacy and efficiency.
+The second experiment focuses on estimating the most effective scanning technique, this experiment focuses on the capability of JavaScript APIs to detect open ports.
+The third experiment focuses on estimating the most efficient scanning technique, this experiment focuses on parallel connections.
 
 \section{Definitions}
 
@@ -66,7 +69,7 @@ WebSocket is a communication protocol that provides full-duplex communication ch
 \subsubsection{WebRTC}
 
 WebRTC (Web Real-Time Communication) is a collection of communication protocols and APIs that enables peer-to-peer audio, video, and data sharing between browsers. It allows direct communication between browsers without the need for intermediate servers. WebRTC API provides methods to establish connections, exchange data, and control media streams.
-WebRTC used to be a viable port scanning technique in the past, due to the \texttt{RTCPeerConnection.onicecandidateerror} event handler emitting useful error information about the status of the connection. However, after being exploited by Baines~\cite{baines2019} in 2019, 
+WebRTC used to be a viable port scanning technique in the past, due to the \texttt{RTCPeerConnection.onicecandidateerror} event handler emitting useful error information about the status of the connection. However, after being exploited by Baines~\citearticle{baines2019} in 2019, 
 this functionality has been removed for local connections\footnote{\url{https://webrtc.googlesource.com/src.git/+/712ebbb5b73baf30f11711efdceb6f08248fac38\%5E\%21/\#F0}}, and therefore scanning the local network via WebRTC is not possible anymore.
 
 \subsubsection{Beacon API}
@@ -83,7 +86,7 @@ Server-Sent Events (SSE) is a server push technology that enables continuous upd
 
 The aforementioned JavaScript APIs leaves us with three possible APIs to perform browser-based port scanning: Fetch, XHR and WebSockets. As all three APIs are built on top of the TCP protocol, this limits the potential results that may be achieved, as the status of UDP ports will remain undetectable. 
 
-While Fetch and XHR are similar in functionality, WebSockets are not built on top of the HTTP protocol, and could therefore achieve different results. WebSocket and HTTP are separate protocols that operate at layer 7 in the OSI model~\cite{kumar2014} and rely on TCP at layer 4. However, despite their differences, RFC 6455~\cite{fette2011} specifies that WebSocket `is intended to be compatible with HTTP-based server-side software and intermediaries'. This compatibility is achieved through the WebSocket handshake, which utilizes the HTTP Upgrade header to transition from the HTTP protocol to the WebSocket protocol.
+While Fetch and XHR are similar in functionality, WebSockets are not built on top of the HTTP protocol, and could therefore achieve different results. WebSocket and HTTP are separate protocols that operate at layer 7 in the OSI model~\citescientific{kumar2014} and rely on TCP at layer 4. However, despite their differences, RFC 6455~\citetechnical{fette2011} specifies that WebSocket `is intended to be compatible with HTTP-based server-side software and intermediaries'. This compatibility is achieved through the WebSocket handshake, which utilizes the HTTP Upgrade header to transition from the HTTP protocol to the WebSocket protocol.
 % This suggests that the WebSocket API could be the most effective scanning technique, as it is able to make requests over both the WebSocket and the HTTP protocol.
 
 % ==========================================================================
@@ -153,7 +156,7 @@ This improvement is illustrated by comparing the two techniques in Figures~\ref{
 
 By adopting the queuing mechanism, our approach mitigates the inefficiencies inherent in batch-job scanning, leading to a substantial improvement in the efficiency and speed of port scanning, particularly when dealing with a larger range of ports.
 
-When all ports have finished scanning, the results of the scan are posted back to the server for post-scan analysis. The implementation of the full application can be found on GitHub~\cite{bvdl2023}
+When all ports have finished scanning, the results of the scan are posted back to the server for post-scan analysis. The implementation of the full application can be found on GitHub~\citeartifact{bvdl2023}
 
 \subsection{Docker Containerization}
 \label{section:experiment-setup}
@@ -445,7 +448,7 @@ The combination of WebSocket/Firefox also had an increased detection rate of 100
 
 \subsubsection{Consideration of Unsafe Ports}
 
-The presence of \emph{unsafe} ports, which cannot be reliably classified as open or closed, introduces complexity to port scanning.
+The presence of \emph{unsafe} ports~\citetechnical{firefox_restricted_ports,chrome_restricted_ports}, which cannot be reliably classified as open or closed, introduces complexity to port scanning.
 Unsafe or restricted ports refer to a range of TCP/UDP ports that are reserved for system or administrative use and are not meant for normal application traffic. Browsers do not reveal information about these ports, so we cannot determine whether these ports are open or not. Unsafe ports were excluded from the results to prevent data pollution.
 
 

@@ -11,16 +11,16 @@
 \section{Browser Fingerprinting}
 \label{browser-fingerprinting}
 
-Browser fingerprinting is a well-known technique that has garnered significant attention, thanks to Eckersley's pioneering work in bringing the issue to the forefront~\cite{eckersley2010}. Eckersley developed an algorithm capable of identifying a browser fingerprint with an accuracy of 83.6\%, and it could also detect changes in the fingerprint with 99.1\% accuracy. Subsequent studies have focused on exploring various properties that can be utilized for re-identification, including IP address and user-agent~\cite{yen2012}, fingerprinting the HTML5 canvas~\cite{mowery2012}, detection of installed fonts, time zone, and screen resolution~\cite{boda2012}, as well as measuring the timing of the JavaScript engine execution~\cite{mowery2011,rokicki2021}, among others.
+Browser fingerprinting is a well-known technique that has garnered significant attention, thanks to Eckersley's pioneering work in bringing the issue to the forefront~\citescientific{eckersley2010}. Eckersley developed an algorithm capable of identifying a browser fingerprint with an accuracy of 83.6\%, and it could also detect changes in the fingerprint with 99.1\% accuracy. Subsequent studies have focused on exploring various properties that can be utilized for re-identification, including IP address and user-agent~\citescientific{yen2012}, fingerprinting the HTML5 canvas~\citescientific{mowery2012}, detection of installed fonts, time zone, and screen resolution~\citescientific{boda2012}, as well as measuring the timing of the JavaScript engine execution~\citescientific{mowery2011,rokicki2021}, among others.
 
-Nikiforakis et al.~\cite{nikiforakis2013}, Laperdrix et al.~\cite{laperdrix2016} and Gomez et al.~\cite{gomez2018} have further investigated the practical usage of these techniques, showcasing that this is a real threat to user privacy on the internet. Building upon this research, our paper aims to introduce a fingerprinting technique through browser-based port scanning, focusing on an area with limited existing literature.
+Nikiforakis et al.~\citescientific{nikiforakis2013}, Laperdrix et al.~\citescientific{laperdrix2016} and Gomez et al.~\citescientific{gomez2018} have further investigated the practical usage of these techniques, showcasing that this is a real threat to user privacy on the internet. Building upon this research, our paper aims to introduce a fingerprinting technique through browser-based port scanning, focusing on an area with limited existing literature.
 
 \section{Fingerprinting running services and the local network}
 % Port scanning in general
 Aforementioned browser fingerprinting techniques are lacking research when it comes to fingerprinting the local network. Scanning for open ports on the local network can yield promising results, such as revealing running applications on a system.
 Port scanning in general is a well-known technique that is widely used due to its utility for network administrators and its potential use by attackers.
 % \footnote{\url{https://nmap.org/book/osdetect-methods.html##:~:text=Nmap\%20OS\%20fingerprinting\%20works\%20by,Then\%20Nmap\%20listens\%20for\%20responses}}
-Several tools have been developed to scan ports. Nmap~\cite{orebaugh201} is the most popular tool, and the most relevant for this study, because it can fingerprint systems based on port scanning. 
+Several tools have been developed to scan ports. Nmap~\citescientific{orebaugh201} is the most popular tool, and the most relevant for this study, because it can fingerprint systems based on port scanning. 
 
 Nmap is a network scanning tool commonly used by network administrators and both ethical and malicious hackers. It comes preinstalled on Kali Linux, a specialized operating system designed for penetration testing. The tool is able to generate a fingerprint of a target system by sending probes to several ports. Nmap uses TCP, UDP and ICMP probes to directly scan for open ports at the protocol level. Various ambiguities in the standard protocol RFC can
 then be exploited due to small implementation differences.
@@ -46,7 +46,7 @@ Nmap utilizes an extensive fingerprint database to compare the resulting fingerp
     U1(DF=N%T=3B-45%TG=40%IPL=38%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=0%RUD=G)
     IE(DFI=S%T=3B-45%TG=40%CD=S)
     \end{verbatim}
-    \caption{Typical Nmap reference fingerprint~\cite{Lyon2009}}
+    \caption{Typical Nmap reference fingerprint~\protect\citescientific{Lyon2009}}
     \label{fig:nmap-fingerprint}
 \end{figure}
 
@@ -55,19 +55,19 @@ The example reference fingerprint provides information about an Apple Mac OS X S
 \section{Identifying web automation bots}
 As we aim to detect running programs and services on the local network, it is essential to look at existing research on fingerprinting running services. 
 
-Web automation bots such as Selenium~\cite{selenium} are frequently used for large-scale data collection. These bots are susceptible to being detected via fingerprinting techniques, and can be shown different results compared to the original web page. Detecting these bots is a common research topic in browser fingerprinting techniques. Bot detection often involves multiple browser fingerprinting techniques, making it an interesting area of research. 
+Web automation bots such as Selenium~\citearticle{selenium} are frequently used for large-scale data collection. These bots are susceptible to being detected via fingerprinting techniques, and can be shown different results compared to the original web page. Detecting these bots is a common research topic in browser fingerprinting techniques. Bot detection often involves multiple browser fingerprinting techniques, making it an interesting area of research. 
 % Kuchal and Li~\cite{kuchhal2021} show that browser-based port scanning has been used for bot detection in practice. 
-Jonker et al.~\cite{jonker2019} reverse engineered a commercial bot detector and discovered several techniques employed in detecting these bots.
+Jonker et al.~\citescientific{jonker2019} reverse engineered a commercial bot detector and discovered several techniques employed in detecting these bots.
 
 \begin{itemize}
     \item Behavior-based web automation bot detection: Multiple event handlers were added to JavaScript events, such as clicks, mouse movements, a device's orientation, motion, keyboard and touch events.
     \item Code injection routines: Frequent communication with the first party server was found. Within this traffic, fingerprinting information was found. This would allow the server to carry out additional server-side bot detection. After identification, bot-specific code can be injected.
     \item DOM properties: Multiple built-in objects and functions were accessed via JavaScript. Additionally, code was found to scan for bot-only properties, such as the \\\verb|document.$cdc_asdjflasutopfhvcZLmcfl_| property --- a property specific to the ChromeDriver.
-    This is known by the Chromium team, but currently marked as a \emph{won't fix} issue, stating that if a website owner wants to block automation tools, they respect their decision~\cite{chromedriver_bug}.
-    Vlot~\cite{vlot2018} has done extensive research on this, finding several bot-related properties in obfuscated JavaScript files. 
+    This is known by the Chromium team, but currently marked as a \emph{won't fix} issue, stating that if a website owner wants to block automation tools, they respect their decision~\citearticle{chromedriver_bug}.
+    Vlot~\citescientific{vlot2018} has done extensive research on this, finding several bot-related properties in obfuscated JavaScript files. 
 \end{itemize}
 
-Building on top of this research, Krumnow et al.~\cite{krumnow2022} zoomed in on a specific web automation framework, OpenWPM. OpenWPM is a web privacy measurement framework which makes it easy to collect data for privacy studies on a scale of thousands to millions of websites~\cite{openwpm_github}. The research found that OpenWPM was easily detectable and even found OpenWPM detectors in practice. The results indicate that bot detectors are becoming more prevalent, and data obtained through automation frameworks may not be reliable.
+Building on top of this research, Krumnow et al.~\citescientific{krumnow2022} zoomed in on a specific web automation framework, OpenWPM. OpenWPM is a web privacy measurement framework which makes it easy to collect data for privacy studies on a scale of thousands to millions of websites~\citeartifact{openwpm_github}. The research found that OpenWPM was easily detectable and even found OpenWPM detectors in practice. The results indicate that bot detectors are becoming more prevalent, and data obtained through automation frameworks may not be reliable.
 
 % \subsubsection{Website cloaking}
 % Cloaking is a technique where different content is presented to different browsers or bots. While it can serve useful purposes such as providing a more accessible version of a website to users with disabilities, it can also be used for unethical practices like hiding negative reviews or for search engine optimization. However, when detected by search engines, this behavior can result in lower rankings and penalties~\cite{cafarella2004}. Furthermore, malicious websites such as phishing sites may use cloaking to avoid detection.
@@ -78,7 +78,7 @@ Building on top of this research, Krumnow et al.~\cite{krumnow2022} zoomed in on
 
 \section{Port scanning via the browser}
 
-Literature on port scanning via the browser is limited. Kuchal and Li~\cite{kuchhal2021} researched how often websites communicate over the local network. They investigated 100k top domains and 145k malware, phishing and abuse websites. The research discovered that hundreds of websites generate requests to the internal network, including websites in the top 10k domains. While not widespread, it is also not trivial. The study found extensive use of WebSockets, in order to bypass the Same-Origin~\cite{w3c_same_origin_policy} policy.
+Literature on port scanning via the browser is limited. Kuchal and Li~\citescientific{kuchhal2021} researched how often websites communicate over the local network. They investigated 100k top domains and 145k malware, phishing and abuse websites. The research discovered that hundreds of websites generate requests to the internal network, including websites in the top 10k domains. While not widespread, it is also not trivial. The study found extensive use of WebSockets, in order to bypass the Same-Origin~\citetechnical{w3c_same_origin_policy} policy.
 
 The study identified four primary reasons for local port scanning: fraud detection, bot detection, native application communication, and developer errors. These causes provide insight into the potential of browser-based port scanning and why it is a crucial research topic. Port scanning may be utilized for various purposes, such as fingerprinting for bot and OS detection, preventing remote access tools for fraud detection, and identifying particular application states for native application communication. Native application communication and detecting remote access tools sets browser-based port scanning apart from other fingerprinting methods, because detecting running programs and potentially even specific application states is not possible with regular fingerprinting techniques. Browser-based port scanning may therefore have the ability to take user-tracking to a new level, by profiling users' running programs on their systems. Additionally, port scanning may contribute to existing browser fingerprinting research as it can be used for detecting bots. 
 
