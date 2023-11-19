@@ -28,7 +28,7 @@ In theory, the number of possible open port combinations is constrained by the t
 This number arises from the fact that there are 65,535 ports available on a system, and each of these ports can either be open (1) or closed (0), resulting in a binary representation of open and closed ports for each combination. 
 Theoretically, this allows for an immense number of unique port combinations, and thereby a very high entropy.
 
-However, not all ports are detectable by a browser, restricted ports~\citetechnical{chrome_restricted_ports,firefox_restricted_ports} are not detectable, which is not a significant amount of ports, but still noteworthy.
+However, not all ports are detectable by a browser, restricted ports~\citetechnical{firefox_restricted_ports}\citeartifact{chrome_restricted_ports} are not detectable, which is not a significant amount of ports, but still noteworthy.
 Additionally, achieving this theoretical limit is neither feasible nor realistic in practice, primarily due to common software usage patterns, limited concurrent applications, and the time it takes to scan the entire port range. 
 This theoretical limit pertains to the distinctiveness of fingerprinting a single IP address. In theory, browser-based port scanning could extend to multiple IP addresses, resulting in an even more unique fingerprint. 
 Nevertheless, fully scanning a single IP address is already a highly time-intensive and impractical task in most scenarios. 

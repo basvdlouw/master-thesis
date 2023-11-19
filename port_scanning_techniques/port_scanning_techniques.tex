@@ -448,7 +448,7 @@ The combination of WebSocket/Firefox also had an increased detection rate of 100
 
 \subsubsection{Consideration of Unsafe Ports}
 
-The presence of \emph{unsafe} ports~\citetechnical{firefox_restricted_ports,chrome_restricted_ports}, which cannot be reliably classified as open or closed, introduces complexity to port scanning.
+The presence of \emph{unsafe} ports~\citetechnical{firefox_restricted_ports}\citeartifact{chrome_restricted_ports}, which cannot be reliably classified as open or closed, introduces complexity to port scanning.
 Unsafe or restricted ports refer to a range of TCP/UDP ports that are reserved for system or administrative use and are not meant for normal application traffic. Browsers do not reveal information about these ports, so we cannot determine whether these ports are open or not. Unsafe ports were excluded from the results to prevent data pollution.
 
 
