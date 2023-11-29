@@ -3,7 +3,7 @@
 \label{chapter:scanning-techniques-experiment}
 % ==========================================================================
 
-In this chapter, we present the results of three experiments that were conducted to estimate the most effective browser-based port scanning strategy for each combination of operating system and browser. 
+In this chapter, we present the results of three experiments that were conducted to estimate the most effective browser-based port scanning strategy for several combinations of operating system and browser. 
 The first experiment focuses on estimating the optimal socket timeout setting, this experiment focuses on finding a balance between efficacy and efficiency.
 The second experiment focuses on estimating the most effective scanning technique, this experiment focuses on the capability of JavaScript APIs to detect open ports.
 The third experiment focuses on estimating the most efficient scanning technique, this experiment focuses on parallel connections.
@@ -26,7 +26,9 @@ It is worth noting that certain scanning techniques may be required to detect sp
 
 \subsubsection{Efficacy}
 
-Efficacy is closely tied to the attack goal. It signifies the degree to which a scan successfully accomplishes its intended objective. The efficacy of a scan depends on whether the desired information can be obtained from one or more targeted ports.
+Efficacy is closely tied to the attack goal. 
+It signifies the degree to which a scan successfully accomplishes its intended objective. 
+The efficacy of a scan depends on whether the desired information can be obtained from one or more targeted ports.
 
 For instance, if the attacker is scanning for a specific port, they may employ techniques tailored to detecting that port accurately. If the desired information can be retrieved from the scanned port(s), the scan is considered efficacious.
 
@@ -44,7 +46,7 @@ Efficiency is determined by various factors that impact the time and resources r
     \item Additional overhead: Various factors such as browser, operating system, and hardware configurations can introduce overhead during the scanning process. These should be taken into account when evaluating efficiency.
 \end{enumerate}
 
-Efficiency is commonly assessed based on the time required to complete a scan. The faster a scan can be accomplished without compromising the desired effectiveness, the more efficient it is considered. However, it is crucial to acknowledge that increasing the number of parallel sockets may enhance scan speed, but it could also render the website unusable in the browser since all available resources would be consumed by network requests.
+Efficiency is commonly assessed based on the time required to complete a scan. The faster a scan can be accomplished without compromising the desired efficacy, the more efficient it is considered. 
 
 
 \section{Background}
@@ -227,14 +229,14 @@ One primary motivation for altering the socket timeout setting is to improve the
   \item \textbf{Efficiency Gains}: Ultimately, the objective is to achieve higher overall efficiency, enabling the scanning of more ports within a shorter time frame. This is particularly important when conducting large-scale or time-sensitive scans.
 \end{itemize}
 
-\subsubsection{Balancing Accuracy and Speed}
+\subsubsection{Balancing Efficacy and Speed}
 
-While efficiency gains are desirable, there is an inherent trade-off between scan speed and accuracy when adjusting the socket timeout setting:
+While efficiency gains are desirable, there is an inherent trade-off between scan speed and efficacy when adjusting the socket timeout setting:
 
 \begin{itemize}
-  \item \textbf{Accuracy Concerns}: Setting the socket timeout too low might result in inaccurate scan results. In such cases, the scanner may not wait long enough to receive a response from the target port, potentially leading to false negatives.
+  \item \textbf{Efficacy Concerns}: Setting the socket timeout too low might result in inaccurate scan results. In such cases, the scanner may not wait long enough to receive a response from the target port, potentially leading to false negatives.
 
-  \item \textbf{Finding the Optimal Balance}: Therefore, it becomes crucial to strike a balance between accuracy and efficiency. The challenge lies in identifying the lowest socket timeout value that maintains accuracy without sacrificing scan efficiency.
+  \item \textbf{Finding the Optimal Balance}: Therefore, it becomes crucial to strike a balance between efficacy and efficiency. The challenge lies in identifying the lowest socket timeout value that maintains efficacy without sacrificing scan efficiency.
 \end{itemize}
 
 \subsection{Experiment Target}
@@ -244,7 +246,7 @@ In order to address the motivations outlined above, the experiment targets the f
 \subsubsection{Determining the Optimal Socket Timeout}
 
 \begin{itemize}
-  \item \textbf{Objective}: The primary objective of the experiment is to identify the socket timeout value that strikes the ideal balance between scan speed and accuracy.
+  \item \textbf{Objective}: The primary objective of the experiment is to identify the socket timeout value that strikes the ideal balance between scan speed and efficacy.
   
   \item \textbf{Analysis of Results}: Data collected during the experiment is analyzed comprehensively to determine which socket timeout setting achieves this balance most effectively.
   
@@ -260,7 +262,7 @@ In order to address the motivations outlined above, the experiment targets the f
   
   \item \textbf{Measurement of Efficiency}: Efficiency in this context is quantified by measuring the time taken to complete the port scan for each tested socket timeout value.
   
-  \item \textbf{Measurement of Accuracy}: To assess accuracy, the scan results are compared against a reference set of known open and closed ports.
+  \item \textbf{Measurement of Efficacy}: To assess efficacy, the scan results are compared against a reference set of known open and closed ports.
 \end{itemize}
 
 The parameters for the experiments can be found in Appendix~\ref{appendix:expirement-parameters}. 
@@ -273,23 +275,23 @@ We chose not to include MacOS in the list of Operating Systems because of compat
 
 \subsection{Experiment Results}
 
-In this experiment, we investigated the impact of varying socket timeout settings on the accuracy and efficiency of port scanning using different web browsers and operating systems. The key findings are summarized below:
+In this experiment, we investigated the impact of varying socket timeout settings on the efficacy and efficiency of port scanning using different web browsers and operating systems. The key findings are summarized below:
 
-\subsubsection{Socket Timeout Settings and Accuracy}
+\subsubsection{Socket Timeout Settings and Efficacy}
 
-We observed that the choice of socket timeout setting significantly affected the accuracy of port scanning, particularly for the Chrome and Firefox browsers. Specifically:
+We observed that the choice of socket timeout setting significantly affected the efficacy of port scanning, particularly for the Chrome and Firefox browsers. Specifically:
 
 \begin{itemize}
     \item \textbf{Chrome Browser}:
     \begin{itemize}
-        \item Using a socket timeout of 100 milliseconds resulted in reduced accuracy, with 76 ports being detected rather than the configured 100 open ports.
-        \item The accuracy reached 100\% when a socket timeout setting of 150ms was used.
+        \item Using a socket timeout of 100 milliseconds resulted in reduced efficacy, with 76 ports being detected rather than the configured 100 open ports.
+        \item The efficacy reached 100\% when a socket timeout setting of 150ms was used.
     \end{itemize}
     
     \item \textbf{Firefox Browser}:
     \begin{itemize}
         \item Similar outcomes were measured for Firefox, with a timeout of 100 milliseconds resulting in only 21 detected ports.
-        \item The accuracy reached 100\% when a socket timeout setting of 150ms was used.
+        \item The efficacy reached 100\% when a socket timeout setting of 150ms was used.
     \end{itemize}
 \end{itemize}
 
@@ -300,7 +302,7 @@ The raw results can be found in Appendix A, Table~\ref{tab:socket-timeout-compar
 To ensure the reliability of our findings, we conducted real-world validation of the results obtained within our virtualized environment. The validation process revealed interesting insights:
 
 \begin{itemize}
-    \item \textbf{Chrome's Consistent Accuracy}: After validating the results in a real-world scenario, Chrome's accuracy remained consistent at 100\% with a 150ms timeout, reinforcing the reliability of this setting.
+    \item \textbf{Chrome's Consistency}: After validating the results in a real-world scenario, Chrome's efficacy remained consistent at 100\% with a 150ms timeout, reinforcing the reliability of this setting.
     
     \item \textbf{Firefox's Variable Performance}: In contrast, Firefox's results were inconsistent until a timeout of 400ms was used in a real-world context. This variability highlights the importance of considering real-world scenarios in setting optimal socket timeouts.
 \end{itemize}
@@ -315,7 +317,7 @@ In our experiments, we observed a notable difference in how socket timeout setti
     \item \textbf{Windows Operating System}:
     \begin{itemize}
         \item Windows respects the configured socket timeout setting as defined in the scanning parameters.
-        \item The accuracy and timing of port responses closely align with the specified timeout, making the socket timeout setting a critical factor in scan accuracy and efficiency on Windows.
+        \item The efficacy and timing of port responses closely align with the specified timeout, making the socket timeout setting a critical factor in scan efficacy and efficiency on Windows.
     \end{itemize}
     
     \item \textbf{Ubuntu Operating System}:
@@ -329,13 +331,13 @@ In our experiments, we observed a notable difference in how socket timeout setti
 
 \subsection{Analysis}
 
-The socket timeout settings play a pivotal role in determining the accuracy and efficiency of browser-based port scanning.
+The socket timeout settings play a pivotal role in determining the efficacy and efficiency of browser-based port scanning.
 
 \begin{enumerate}
-    \item \textbf{Chrome Browser}: A socket timeout setting of 150ms consistently achieves 100\% accuracy in both virtualized and real-world environments. It strikes an optimal balance between accuracy and speed for Chrome.
+    \item \textbf{Chrome Browser}: A socket timeout setting of 150ms consistently achieves 100\% efficacy in both virtualized and real-world environments. It strikes an optimal balance between efficacy and speed for Chrome.
     \item \textbf{Firefox Browser}: A longer timeout of 400ms is advised for Firefox, as we measured that the optimal socket timeout of 150ms during our testing was not accurate during real-world validation. This difference can be attributed to the headless Firefox browser used in our experiments, which is considerably more efficient than the regular browser used in real-world scanning scenarios.
     \item \textbf{Ubuntu Operating System}: Ubuntu's automatic request timeout mechanism minimizes the influence of socket timeout settings. Responses generally occur within 5-75ms, making precise tuning of the socket timeout setting less critical. 
-    \item \textbf{Windows Operating System}: On Windows, socket timeout settings have a more pronounced impact. The operating system respects the configured socket timeout setting, leading to a loss of accuracy in the scan results when the socket timeout is too low. 
+    \item \textbf{Windows Operating System}: On Windows, socket timeout settings have a more pronounced impact. The operating system respects the configured socket timeout setting, leading to a loss of efficacy in the scan results when the socket timeout is too low. 
 \end{enumerate}
 
 \subsubsection{Conclusion}
@@ -344,7 +346,7 @@ In the context of browser-based port scanning, adjusting the socket timeout sett
 
 \begin{enumerate}
     \item \textbf{Efficiency Improvement}: Lowering the socket timeout accelerates scanning, enhancing efficiency for large-scale or time-sensitive scans.
-    \item \textbf{Balance of Accuracy and Speed}: Striking the right balance between accuracy and speed is crucial. An overly low timeout may compromise accuracy, while a very high one affects efficiency.
+    \item \textbf{Balance between Efficacy and Efficiency}: Striking the right balance between efficacy and efficiency is crucial. An overly low timeout compromises efficacy, while a very high timeout compromises efficiency.
 \end{enumerate}
 
 Our experiments recommend a socket timeout of 150ms for Chrome and 400ms for Firefox. These settings ensure efficient scans on both Windows and Ubuntu while maintaining a 100\% detection rate of open ports. It is worth noting that Ubuntu's automatic request timeout mechanism minimizes the influence of socket timeout settings, making precise tuning less critical on this operating system.
@@ -355,17 +357,17 @@ Our experiments recommend a socket timeout of 150ms for Chrome and 400ms for Fir
 
 \begin{itemize}
     \item \textbf{Efficacy}: The motivation behind this experiment is to identify the most effective scanning technique for browser-based port scanning.
-    \item \textbf{Comparing scanning techniques}: The goal is to determine which of the three scanning technique -- Fetch API, XHR (XMLHttpRequest), and WebSocket API -- offers the highest accuracy in detecting open ports.
+    \item \textbf{Comparing scanning techniques}: The goal is to determine which of the three scanning technique -- Fetch API, XHR (XMLHttpRequest), and WebSocket API -- offers the highest efficacy in detecting open ports.
 \end{itemize}
 
 \subsection{Experiment Target}
 
-The experiment is designed to investigate and compare the effectiveness of different scanning techniques, namely the Fetch API, XHR and WebSocket API.
+The experiment is designed to investigate and compare the efficacy of different scanning techniques, namely the Fetch API, XHR and WebSocket API.
 
 The experiment targets the following specific objectives:
 \begin{itemize}
-    \item Evaluate the accuracy of each scanning technique in detecting open ports using the intended functionality of the APIs.
-    \item Evaluate the accuracy of each scanning technique in detecting open ports using a timing attack method.
+    \item Evaluate the efficacy of each scanning technique in detecting open ports using the intended functionality of the APIs.
+    \item Evaluate the efficacy of each scanning technique in detecting open ports using a timing attack method.
 \end{itemize}
 
 
@@ -375,7 +377,7 @@ The experiment targets the following specific objectives:
 
 \subsection{Experiment Results}
 
-In this experiment, we evaluated the effectiveness of three scanning techniques –- the Fetch, XHR, and WebSocket APIs –- with the optimal socket timeout setting determined in the previous experiment. The raw results can be found in Table~\ref{tab:scan-technique-comparison}.
+In this experiment, we evaluated the efficacy of three scanning techniques –- the Fetch, XHR, and WebSocket APIs –- with the optimal socket timeout setting determined in the previous experiment. The raw results can be found in Table~\ref{tab:scan-technique-comparison}.
 
 \subsubsection{Fetch API Outperforms}
 
@@ -455,7 +457,7 @@ Unsafe or restricted ports refer to a range of TCP/UDP ports that are reserved f
 
 \subsubsection{Conclusion}
 
-The motivation behind this experiment was to identify the most effective scanning technique for browser-based port scanning. We aimed to determine which of the three scanning techniques -- Fetch API, XHR, and WebSocket API -- offers the highest accuracy in detecting open ports.
+The motivation behind this experiment was to identify the most effective scanning technique for browser-based port scanning. We aimed to determine which of the three scanning techniques -- Fetch API, XHR, and WebSocket API -- offers the highest efficacy in detecting open ports.
 
 Based on our analysis, it is evident that the Fetch API excels across all platforms (OS/Browser combinations) and stands as the superior choice for browser-based port scanning. 
 This API enables us to scan for open ports and directly determine their status, eliminating the need for post-scan analysis or the use of timing attacks when scanning for ports running HTTP.
