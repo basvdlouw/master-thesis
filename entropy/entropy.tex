@@ -85,7 +85,7 @@ The Geometric distribution is chosen to model the likelihood of ports being open
     \caption{Geometric Distribution 1,000 ports}
     \label{fig:geometric_distribution_1000}
 \end{minipage}
-\hspace{0.5cm}
+\hspace{1.5cm}
 \begin{minipage}{.45\textwidth}
 \includegraphics[width=12cm, height=7cm, keepaspectratio]{entropy/img/geometric_distribution_10000.png}
     \caption{Geometric Distribution 10,000 ports}
@@ -109,7 +109,7 @@ This distribution aligns the most with our limit dataset. We believe that a dist
     \caption{Zipf Distribution 1,000 ports}
     \label{fig:zipf_distribution_1000}
 \end{minipage}
-\hspace{0.5cm}
+\hspace{1.5cm}
 \begin{minipage}{.45\textwidth}
 \includegraphics[width=12cm, height=7cm, keepaspectratio]{entropy/img/zipf_distribution_10000.png}
     \caption{Zipf Distribution 10,000 ports}
@@ -257,7 +257,6 @@ As logically follows, due to the Zipf distribution being more uniform than the G
 
 Another aspect we explored is the influence of expanding the search space by increasing the number of ports scanned.
 For the Geometric distribution, transitioning from scanning 1,000 ports with 5 average open ports (Scenario 1) to scanning 10,000 ports with 10 average open ports (Scenario 2) resulted in a relatively modest increase in entropy, approximately 2.39 bits. This suggests that, for the Geometric distribution, the search space expansion had a more incremental effect on fingerprint uniqueness.
-
 In contrast, the Zipf distribution exhibited a more substantial impact when transitioning between scenarios. The entropy increased by approximately 3.34 bits, emphasizing that the Zipf distribution's effectiveness in generating unique fingerprints becomes more pronounced with a larger search space.
 
 On certain webpages where a user is expected to stay for a longer time, the search space can be expanded to a higher number. When 1,000 ports are mapped to the most popular applications currently opening a port, browser-based port scanning becomes a realistic and powerful fingerprinting technique. Especially when ports outside the dynamic port range are scanned, browser-based port scanning can be utilized for user-tracking, as most ports will not be ephemeral.
