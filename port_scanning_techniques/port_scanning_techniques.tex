@@ -157,16 +157,16 @@ This improvement is illustrated by comparing the two techniques in Figures~\ref{
 \end{figure}
 
 By adopting the queuing mechanism, our approach mitigates the inefficiencies inherent in batch-job scanning, leading to a substantial improvement in the efficiency and speed of port scanning, particularly when dealing with a larger range of ports.
-
 When all ports have finished scanning, the results of the scan are posted back to the server for post-scan analysis. The implementation of the full application can be found on GitHub~\citeartifact{bvdl2023}
 
 \subsection{Docker Containerization}
 \label{section:experiment-setup}
 
-In order to conduct our experiments systematically and ensure reproducibility, we employed a fully automated approach utilizing Docker containers. This approach encapsulated the entire experiment, maintaining consistency and facilitating the ability to replicate the experiments precisely. The setup was designed to be repeatable by others and consisted of the following key components:
+In order to conduct our experiments systematically and ensure reproducibility, we employed a fully automated approach utilizing Docker containers. 
+This approach encapsulated the entire experiment, maintaining consistency and facilitating the ability to replicate the experiments precisely. 
+The setup was designed to be repeatable by others.
 
 We employed Docker containers to establish a self-contained and isolated environment for conducting our experiments. This approach effectively eliminated potential issues that could arise from variations in the underlying host systems.
-
 The use of Docker containers provided us with the capability to define and manage various experiment parameters, including operating systems, web browsers, socket settings, and scanning techniques, all through Dockerfiles. This ensured that the experiment environment remained consistent and reproducible across multiple runs.
 
 Within these Docker containers, we included servers that served as potential attack targets. Among them, there is a server that hosts an implementation of the browser-based port scanning application, simulating a website running browser-based port scanning attacks. Furthermore, our Docker containers also contain a client-side Selenium application responsible for initiating and interacting with the browser-based port scanning application during the experiments, utilizing headless browsers.
@@ -504,7 +504,7 @@ This experiment targets specific objectives related to efficiency and parallel c
 These findings, illustrated in Figures~\ref{fig:windows_chrome_n_sockets} and~\ref{fig:ubuntu_chrome_n_sockets}, provide insights into the optimal scanning techniques for different operating systems and the impact of parallel connections on scanning efficiency. Further comparisons can be found in Appendix A, Section~\ref{appendix:efficiency-comparison}
 
 \begin{figure}[ht]
-\begin{adjustwidth}{-5cm}{-1cm}
+\begin{adjustwidth}{-2cm}{-1cm}
 \centering
 \begin{minipage}{.45\textwidth}
   \centering
