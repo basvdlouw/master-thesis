@@ -277,7 +277,6 @@ We have integrated port-scanning within the popular FingerprintJS~\citeartifact{
 \section{Conclusion}
 
 In conclusion, our experiments show that browser-based port scanning is a realistic threat to user anonymity on the internet, based on our assumptions. We have examined the impact of different probability distributions (Geometric, Zipf, and Uniform) and the expansion of search space on the entropy of fingerprints generated through port scanning.
-
 One of the most important findings of this experiment is that regardless of the distribution used, we consistently observed high levels of entropy, indicating the potential for creating highly unique fingerprints through browser-based port scanning, within a short period of scanning time (< 1 second).
 
 This finding suggests that a fingerprint with an entropy of at least 9 can be generated within roughly one second of scanning. When combined with existing fingerprinting techniques, such as time zone, plugins, ad blocker, user-agent, fonts, screen resolution, etc., this results in a cumulative entropy that exceeds 50 bits of entropy~\citescientific{gomez2018}. Narayanan~\citescientific{narayanan201233} argues that an entropy of 33 bits is sufficient to uniquely identify users ($2^{33}$ = 8,59 billion), emphasizing the threat that browser-based port scanning poses to user anonymity on the internet.
