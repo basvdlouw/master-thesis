@@ -40,11 +40,10 @@ It is essential to note that these results are based on our estimates, and a lar
 
 The practice of browser-based port scanning poses a significant threat to user privacy. We argue that browser-based port scanning should be banned by web browsers, or at the very least, users should have to explicitly grant permissions for a website to access their local network. 
 
-We contend that any potential benefits, such as the detection of remote access tools for comprised devices, are outweighed by the risks to user privacy and security.
-Additionally, we think that using browser-based port scanning as a security measure is inherently insufficient, and there are better established alternatives such as multi-factor authentication, which can prevent hijacked devices from making unauthorized requests.
+We contend that any potential benefits, such as the detection of remote access tools for comprised devices as a security measure, are outweighed by the risks to user privacy and security.
+Additionally, we think that using browser-based port scanning as a security measure is inherently insufficient, and there are better --- less intrusive --- established alternatives such as multi-factor authentication, which can prevent hijacked devices from making unauthorized requests.
 
 While the potential defensive mechanism of browser-based port scanning is insufficient, the threats are real.
-
 We established the following threats to privacy in this paper:
 \begin{itemize}
     \item Identification of specific open ports: Browser-based port scanning can be used to scan specific ports on a system, corresponding to an application natively opening that specific port. This knowledge can be leveraged to target users who are utilizing a particular type of application or service.
@@ -57,16 +56,31 @@ While not a focus of this paper, the threats to security are also a significant 
     \item SOHO Pharming~\citetechnical{sohopharming2013}: SOHO Pharming was an attack that compromised over 300,000 consumer-grade SOHO routers, primarily in Europe and Asia since December 2013. Attackers manipulated DNS configurations, redirected DNS requests, and performed Man-in-the-Middle attacks. The attack targeted various router models, exploited vulnerabilities such as authentication bypass and CSRF techniques, and took advantage of consumer unfamiliarity with router configurations and insecure default settings.
 \end{itemize}
 
-\subsubsection{Opt-in solution}
-The only real benefit to accessing the local network would be a website integrating with its native desktop application. Explicitly granting this permission should not be a problem. This is already required for many other resources accessed by the browser, such as microphones and cameras.
-The Brave browser has already implemented this functionality on both their Desktop and mobile browser~\citearticle{brave_localhost}. We argue that more mainstream browsers such as Google Chrome, Firefox, Safari and Microsoft Edge should adopt this change and give users more control over their privacy. 
+\subsubsection{Opt-In Solution for Enhanced Privacy and Security}
 
-West and Rigoudy~\citetechnical{rigoudy2023} have worked on a draft specification to prevent unauthorized private network access from the public internet. While this specification is still in draft and not on track to be a W3C standard, we think it should be. 
-The principle of least privilege is becoming more popular in modern software architecture. Software developed (i.e. browsers) for end users should embrace this principle. By adopting the principle of least privilege, software can ensure that users are protected by default, rather than exposed to external threats by default, making it clear that the opt-in approach should be the standard for safeguarding user security and privacy.
+The only real benefit to accessing the local network would be a website integrating with its native desktop application. 
+Granting explicit permission for this access aligns with established practices for various resources accessed by browsers, such as microphones and cameras.
+The Brave browser has already implemented this functionality on both their Desktop and mobile browser~\citearticle{brave_localhost}. 
+We argue that more mainstream browsers such as Google Chrome, Firefox, Safari and Microsoft Edge should adopt this change and give users more control over their privacy. 
 
+West and Rigoudy~\citetechnical{rigoudy2023} have worked on a draft specification to prevent unauthorized private network access from the public internet. 
+While this specification is still in draft and not on track to be a W3C standard, we think it should be. 
+The principle of least privilege is becoming more popular in modern software architecture. 
+Software developed (i.e. browsers) for end users should embrace this principle. 
+By adopting the principle of least privilege, software can ensure that users are protected by default, rather than exposed to external threats by default, making it clear that the opt-in approach should be the standard for safeguarding user security and privacy.
 
-% Here, you give the answers to your questions and show how these answers are based on your results, and how they are validated.
+In the current landscape, users have several options available to protect themselves against browser-based port scanning. 
+One approach involves choosing browsers prioritizing user consent, like the Brave browser. 
+However, transitioning to a new browser might pose usability challenges despite its emphasis on privacy.
+Another strategy revolves around disabling JavaScript, a step effective in enhancing privacy, but detrimental to modern webpage functionality.
+A more realistic alternative is a browser extension, such as the open source \emph{LAN Port Scan Forbidder}~\citeartifact{lanportscanforbidder}. 
+This extension prevents unauthorized access to local networks. 
 
+Nevertheless, relying on these measures highlights the conflict between privacy and usability and underscores the need for default user privacy in online environments.
+Advocating for a shift where user privacy and security are default settings in modern web browsers remains crucial. 
+This approach would alleviate the need for users to resort to these measures and promote a more user-centric approach to online privacy.
+
+\clearpage
 
 
 \section{Future work}
