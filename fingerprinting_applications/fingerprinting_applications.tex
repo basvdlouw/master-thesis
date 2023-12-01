@@ -5,7 +5,6 @@ In this chapter, we focus on the capabilities of browser-based port scanning for
 \section{Fingerprinting the underlying operating system}
 
 In this section, we explore the potential of fingerprinting the underlying operating system through browser-based port scanning. As mentioned previously, numerous ports utilized by the operating system fall under the category of unsafe or restricted ports. Consequently, these particular ports remain undetectable through browser-based port scanning.
-
 Nevertheless, certain ports employed by the OS do not carry the restricted classification, allowing us the opportunity to fingerprint and distinguish different OS configurations from each other. 
 
 \subsection{Motivation}
@@ -96,14 +95,11 @@ In our experiment, we conducted a thorough scan across the entire port range on 
 \end{table}
 
 Additionally, Windows contains a default mapping of well-known ports in the 
-
 \texttt{\%WINDIR\%\textbackslash System32\textbackslash drivers\textbackslash etc\textbackslash services} file, including approximately 100–135 ports outside the restricted range, which can serve as a foundation for targeted scans.
-
 Aside from Windows features, there are standard settings that may be enabled or disabled on Windows. We tested for open ports (outside the restricted range) on settings that require network connectivity, such as Bluetooth, Devices, Phone Link, VPN and Remote Desktop Protocol.
 
 Among these, VPN and Remote Desktop Protocol (RDP) exhibited noteworthy findings. While a VPN connection might not be detectable by itself, our tests involving ExpressVPN revealed an interesting aspect. The ExpressVPN application seemed to open port 2020, which we could consistently detect while the VPN was active. This implies that although the Windows OS does not inherently trigger the opening of a specific port upon VPN configuration, the VPN application itself does so.
-
-Regarding Remote Desktop Protocol (RDP), establishing a connection to a remote machine does not appear to expose any open ports on the host machine. However, on the machine to which the connection is made, we were able to identify the presence of an active RDP connection. While the Fetch API does not directly identify that the RDP port (3389) is open, we managed to determine that the port was open via a timing attack. This approach enables us to detect the open port consistently. This finding suggests that browser-based port scanning remains a viable method for detecting remote access tools, similar to the technique employed by eBay in 2020~\cite{ebay_port_scans}.
+Regarding RDP, establishing a connection to a remote machine does not appear to expose any open ports on the host machine. However, on the machine to which the connection is made, we were able to identify the presence of an active RDP connection. While the Fetch API does not directly identify that the RDP port (3389) is open, we managed to determine that the port was open via a timing attack. This approach enables us to detect the open port consistently. This finding suggests that browser-based port scanning remains a viable method for detecting remote access tools, similar to the technique employed by eBay in 2020~\cite{ebay_port_scans}.
 
 \subsubsection{Fingerprinting Ubuntu 22.04}
 
@@ -115,24 +111,18 @@ However, like Windows, Ubuntu maintains a \texttt{/etc/services} file, mapping 3
 \subsection{Analysis}
 
 For Windows 11, specific Windows features and network-related settings result in detectable open ports. Enabling features like Hyper-V and Internet Information Services (IIS) resulted in identifiable open ports, making them valuable indicators for distinguishing different Windows configurations. 
-
 In the case of Ubuntu 22.04, the consistent presence of port 631 associated with CUPS simplifies the identification of default Ubuntu installations. 
 Simply scanning port 631 will be enough to detect a default Ubuntu installation. While it may not guarantee a 100\% accuracy of the OS fingerprint, another service could be running on port 631, or CUPS could be running on a different OS, its integration with existing techniques improves the reliability of the OS fingerprint. 
-
 The \texttt{/etc/services} file found on both Windows and Ubuntu can be used for a targeted scan on a system, after detecting which OS is making the request. All ports within the \texttt{/etc/services} file can be scanned in one second, making it a realistic enhancement to existing fingerprinting techniques.  
 
 \subsection{Conclusion}
 
 The experiment demonstrated that specific configurations and features in both Windows 11 and Ubuntu 22.04 can lead to identifiable ports on the system.
-
 On Ubuntu, the consistent presence of port 631 associated with CUPS simplifies the identification of default Ubuntu installations, and may strengthen existing fingerprinting techniques related to OS detection.
-
 The experiment also underscored the relevance of timing attacks and browser-based port scanning techniques for detecting open ports, particularly in scenarios such as identifying active RDP connections.
 
 In conclusion, the experiment indicates that by incorporating browser-based port scans into existing fingerprinting techniques, we can significantly enhance their effectiveness. This enhancement not only increases the uniqueness of the fingerprint, but also enables more sophisticated user tracking across browser sessions, which has implications for user privacy.
-
 Furthermore, browser-based port scanning has the capability to identify certain running operating system services. This aspect may be of particular interest to malicious actors seeking to exploit known services operating on specific ports.
-
 Additionally, browser-based port scanning can serve as a defensive measure. It can be employed to block users who are being controlled through remote access tools, a technique previously used by eBay~\cite{ebay_port_scans}.
 
 
@@ -189,7 +179,6 @@ The motivation behind identifying running programs bears a resemblance to the pr
 \subsubsection{Privacy Concerns}
 
 Detecting running programs gives websites the potential to learn about personal information of users. This can be achieved by mapping common programs to their default ports, and scanning for these ports using browser-based port scanning. Consequently, this capability can be used to identify the individual preferences of users, such as their preferred software applications. This data can be used for various purposes, including crafting personalized advertisements, as well as potentially more nefarious applications like phishing.
-
 Moreover, akin to the practice of OS fingerprinting, the identification of open ports can be utilized to generate a unique fingerprint, enabling the tracking of users across multiple browsing sessions. This persistent tracking can lead to a loss of anonymity and privacy, as users' online behaviors become more traceable.
 
 \subsubsection{Security Concerns}
@@ -199,7 +188,6 @@ Secondly, the capacity to detect open ports holds security implications. Much li
 \subsection{Experiment Target}
 
 The experiment focuses on identifying running programs in order to assess the feasibility of browser-based port scanning. We have chosen a select few categories to concentrate on, with the aim of targeting various types of programs and users.
-
 These categories can be broadly categorized into three main groups: user privacy, user preferences, and fingerprinting. Within these main categories, we have chosen a limited number of subcategories to specifically target different types of programs.
 
 \begin{enumerate}
@@ -276,19 +264,16 @@ We drew several conclusions from these results. In general, TCP ports running HT
 Detecting TCP ports that do not run HTTP is more challenging, because they do not respond with HTTP status codes, making them less easily detectable. However, we found that some open TCP ports not running HTTP, such as Spotify and ExpressVPN, have response times that differ significantly from the configured socket timeout of 200ms. In contrast, closed ports typically time out between 200-215ms. Therefore, when TCP ports respond within less than 200ms, they can usually be considered open ports. This suggests that measuring response times of TCP ports could be a reliable fingerprinting technique, but it has some limitations.
 
 Response times depend on several factors, such as the operating system, browser, underlying hardware, and network configuration. Moreover, as previously mentioned, \emph{unsafe} ports will respond quickly, but that does not mean that they are open ports. Additionally, as found in Section~\ref{section:socket-timeout-setting}, this method of using timing attacks will not work on Ubuntu, because the socket timeout of 200ms is not respected like it is on Windows. 
-
 For this reason, we conclude that applications that open a TCP port outside the restricted/unsafe range running HTTP(S) are reliably detectable using the Fetch API. TCP ports not running HTTP can sometimes be detected using timing attacks, depending on the platform. We saw similar behavior in Section~\ref{section:win11-fingerprint}, where an RDP connection was not directly detected by the Fetch API, but was still detectable via a timing attack.
 
 \subsubsection{Mapping applications to open ports}
 
 Having successfully demonstrated the feasibility of reliably fingerprinting certain applications through browser-based port scanning, the next logical step would involve establishing a correlation between applications and the associated open ports. This correlation would significantly enhance our fingerprinting capabilities. However, this task leans more towards an engineering problem rather than a research problem. As a result, we did not emphasize the development of this mapping in our current work.
-
 Nonetheless, it is worth noting that there are existing mappings available that can serve as a solid foundation for fingerprinting purposes, even if they are not exhaustive. Among these mappings, the one hosted by the Internet Assigned Numbers Authority stands out as the most extensive dataset currently available~\citetechnical{iana_ports}. This dataset maps over 10,000 ports to known applications and services.
 
 \subsection{Conclusion}
 
 The detection of open ports using browser-based port scanning, particularly those running HTTP services, proves to be a feasible and reliable, showcasing the potential for this approach as a fingerprinting technique. 
-
 Motivated by privacy and security concerns, the ability to identify running programs has important implications. Privacy concerns arise from the potential for websites to collect information about users' running programs, potentially leading to personalized targeting and tracking across browsing sessions. On the security front, the identification of open ports can serve as an entry point for malicious attackers to gather information and target vulnerabilities within these programs. 
 
 \section{Identifying specific program states}
@@ -325,7 +310,6 @@ Across the investigated applications, the same behavior was consistently measure
 \subsubsection{Identifying mobile apps}
 
 While our research is not primarily focused on mobile applications, we conducted preliminary research to assess the viability of using browser-based port scanning to detect mobile applications. In an experiment, we evaluated 70 mobile apps on an Android 11 device, but we were unable to detect a single application through browser-based port scanning. 
-
 It is important to note that we do not consider our research to be definitive in concluding that browser-based port scanning is not a threat on mobile devices, as our study was not as comprehensive as it was for desktop applications. We do not see a reason why browser-based port scanning \emph{should} not be possible on mobile. However, it is worth noting that we did not encounter the same challenges when detecting the first application on desktop devices, as it required considerably less time to detect the first application on a desktop device.
 
 % \subsection{Video / Chat service}
