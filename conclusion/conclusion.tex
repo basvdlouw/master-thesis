@@ -5,7 +5,7 @@ In this document, we researched browser-based port scanning and drew the followi
 
 \textbf{RQ1: How to choose the optimal port-scanning technique for a specific victim client in combination with a specific attack goal?}
 
-We measured significant variations between different operating systems and scanning techniques. The Fetch API emerged as the most effective JavaScript API for conducting browser-based port scanning, and it proved to be highly efficient across various configurations. This can primarily be attributed to the "no-cors" mode, a setting unique to the Fetch API.
+We measured significant variations between different operating systems and scanning techniques. The Fetch API emerged as the most effective JavaScript API for conducting browser-based port scanning, and it proved to be highly efficient across various configurations. This can primarily be attributed to the \emph{no-cors} mode, a setting unique to the Fetch API.
 A notable contrast was observed between Ubuntu and Windows. Ubuntu tended to time out network requests whenever possible, whereas Windows adhered to the configured socket timeout settings. This characteristic made browser-based port scanning considerably more efficient on Ubuntu.
 
 We estimate that on Windows/Chrome, which is the most popular combination of OS/Browser, it is possible to scan 1,000 ports within one second (2,500+ on Ubuntu). This makes browser-based port scanning a practical real-world attack on virtually any web page. This is especially concerning because the scanning process can continue throughout a user's entire session on the website, which usually lasts much longer than just one second. 
