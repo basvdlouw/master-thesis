@@ -36,7 +36,7 @@
 \RequirePackage{ifpdf}
 \RequirePackage{ifxetex}
 \RequirePackage{metalogo}
-\RequirePackage[resetlabels,labeled]{multibib}
+\RequirePackage[resetlabels]{multibib}
 % \RequirePackage[sort&compress]{natbib}
 \RequirePackage{tikz}
 \RequirePackage[noindentafter]{titlesec}
