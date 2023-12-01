@@ -87,7 +87,6 @@ Server-Sent Events (SSE) is a server push technology that enables continuous upd
 % ==========================================================================
 
 The aforementioned JavaScript APIs leaves us with three possible APIs to perform browser-based port scanning: Fetch, XHR and WebSockets. As all three APIs are built on top of the TCP protocol, this limits the potential results that may be achieved, as the status of UDP ports will remain undetectable. 
-
 While Fetch and XHR are similar in functionality, WebSockets are not built on top of the HTTP protocol, and could therefore achieve different results. WebSocket and HTTP are separate protocols that operate at layer 7 in the OSI model~\citescientific{kumar2014} and rely on TCP at layer 4. However, despite their differences, RFC 6455~\citetechnical{fette2011} specifies that WebSocket `is intended to be compatible with HTTP-based server-side software and intermediaries'. This compatibility is achieved through the WebSocket handshake, which utilizes the HTTP Upgrade header to transition from the HTTP protocol to the WebSocket protocol.
 % This suggests that the WebSocket API could be the most effective scanning technique, as it is able to make requests over both the WebSocket and the HTTP protocol.
 
@@ -101,9 +100,7 @@ Having established the availability of three scanning techniques via the XHR, Fe
 \label{section:port-scanner-application}
 
 A client-side TypeScript web application was developed to facilitate a comparative analysis of these three JavaScript APIs. The application's design was guided by specific considerations outlined below, aimed at optimizing its functionality and applicability for forthcoming chapters.
-
 Central to the application's design is the incorporation of configurability features. These features encompass essential parameters such as socket timeout, parallel socket connections, and the scanning technique. The rationale behind this emphasis on configurability lies in the necessity to ensure uniformity and consistency across various scans during the experiment. By maintaining consistent settings, the application enables accurate and meaningful comparisons between different scanning approaches.
-
 These settings can be passed to the application using query parameters, as depicted in Figure~\ref{fig:initiate-scan}. 
 
 \begin{figure}[ht]
@@ -137,7 +134,6 @@ Upon requesting the webpage, a JavaScript file will be returned which initiates 
 \end{table}
 
 Existing client-side port scanning applications often share a common limitation known as batch-job scanning. In this approach, a predefined range of ports, such as ports 1-50, is scanned concurrently based on a configured parallel sockets count (referred to as "nSockets" in Table~\ref{tab:port-scan-params}). All ports within this designated range are scanned simultaneously within a batch. After completing the entire batch, the scanning process proceeds to the subsequent batch. However, this method suffers from inefficiencies due to variations in the time it takes to scan different ports. Consequently, there's a reduced number of parallel sockets, typically less than 50, actively operating at any given time. This limitation hampers the overall efficiency of the scanning process.
-
 To overcome this limitation, we have created a queuing mechanism designed to eliminate this limitation and ensure optimal utilization of parallel sockets throughout the scanning process. This queuing system operates on the principle of promptly dequeuing a scanning job once the scan of a port is completed. By adopting this approach, our application guarantees a consistent and maximum utilization of parallel sockets throughout the entire scanning operation. This queuing mechanism optimally distributes scanning tasks, minimizing idle periods, and thereby significantly enhancing the efficiency of the scanning process.
 
 This improvement is illustrated by comparing the two techniques in Figures~\ref{fig:batch-job} and~\ref{fig:queue-job}. The comparison visually demonstrates port scans on six ports, with three scans concurrently executed in parallel. In this hypothetical scenario, a reduction of 100ms in scanning time is simulated. While this incremental gain might seem minor when scanning a limited number of ports, say 1000, its impact becomes notably significant when extending the scope of the scan to encompass the entire port range, spanning from 0 to 65536.
