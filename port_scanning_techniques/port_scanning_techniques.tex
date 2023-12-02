@@ -29,7 +29,6 @@ It is worth noting that certain scanning techniques may be required to detect sp
 Efficacy is closely tied to the attack goal. 
 It signifies the degree to which a scan successfully accomplishes its intended objective. 
 The efficacy of a scan depends on whether the desired information can be obtained from one or more targeted ports.
-
 For instance, if the attacker is scanning for a specific port, they may employ techniques tailored to detecting that port accurately. If the desired information can be retrieved from the scanned port(s), the scan is considered efficacious.
 
 \subsubsection{Efficiency}
@@ -454,7 +453,6 @@ Unsafe or restricted ports refer to a range of TCP/UDP ports that are reserved f
 \subsubsection{Conclusion}
 
 The motivation behind this experiment was to identify the most effective scanning technique for browser-based port scanning. We aimed to determine which of the three scanning techniques -- Fetch API, XHR, and WebSocket API -- offers the highest efficacy in detecting open ports.
-
 Based on our analysis, it is evident that the Fetch API excels across all platforms (OS/Browser combinations) and stands as the superior choice for browser-based port scanning. 
 This API enables us to scan for open ports and directly determine their status, eliminating the need for post-scan analysis or the use of timing attacks when scanning for ports running HTTP.
 

@@ -3,12 +3,12 @@
 \section{Port scanning}
 
 Among the various techniques used for port scanning, the most common one is scanning for open TCP ports. TCP (Transmission Control Protocol) is a connection-oriented protocol utilized for reliable data transmission between two devices, requiring two sockets representing the endpoints of the connection. During the establishment of a TCP connection, a three-way handshake is performed, in which SYN (synchronize) and ACK (acknowledge) packets are exchanged between the two devices to establish the connection~\citescientific{de1999}.
-Port scanners take advantage of the three-way handshake to identify open ports on a target system. The scanner sends a SYN packet to the target system and waits for a response. If the port is open, the target system responds with a SYN-ACK (synchronize-acknowledge) packet. The scanner then responds with an ACK packet to establish the connection. If the port is closed, the target system responds with a RST (reset) packet. This process is depicted in Figure~\ref{fig:open-vs-closed}.
+Port scanners take advantage of the three-way handshake to identify open ports on a target system. The scanner sends a SYN packet to the target system and waits for a response. If the port is open, the target system responds with a SYN-ACK (synchronize-acknowledge) packet. The scanner then responds with an ACK packet to establish the connection. If the port is closed, the target system responds with a RST (reset) packet. This process is depicted in Figure~\ref{fig:open-vs-closed} by Elejla et al.~\citescientific{Elijla2013}.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=15cm, height=15cm, keepaspectratio]{background/img/open_vs_closed_port.png}
-    \caption{Open vs. closed port TCP connection~\protect\citescientific{Elijla2013}}
+    \caption{Open vs. closed port TCP connection}
     \label{fig:open-vs-closed}
 \end{figure}
 
@@ -23,12 +23,14 @@ The main distinction is that regular port scanning can perform protocol level sc
 These type of scans can be very powerful, as small implementation differences at the OS level can be enough to establish a unique fingerprint of a system. 
 
 In contrast, the scope of browser-based port scanning is defined by the functionality accessible through the abstraction layers of the JavaScript APIs, imposing limitations on its capabilities.
-For instance, client-side JavaScript code using the WebSocket protocol cannot create UDP connections, and plain TCP connections cannot be opened either. In order to perform browser-based port scanning, we have to use the abstraction layers that are built on top of the TCP protocol, and leverage JavaScript APIs to send network requests. Figure~\ref{fig:js-network-stack} illustrates this, with the top (blue) layer representing the JavaScript APIs.
+For instance, client-side JavaScript code using the WebSocket protocol cannot create UDP connections, and plain TCP connections cannot be opened either. 
+In order to perform browser-based port scanning, we have to use the abstraction layers that are built on top of the TCP protocol, and leverage JavaScript APIs to send network requests. 
+Figure~\ref{fig:js-network-stack} by Zlatkov~\citearticle{medium_js_networking} illustrates this, with the top (blue) layer representing the JavaScript APIs.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=15cm, height=15cm, keepaspectratio]{background/img/js_network_stack.jpg}
-    \caption{JavaScript network layer~\protect\citearticle{medium_js_networking}}
+    \caption{JavaScript network layer}
     \label{fig:js-network-stack}
 \end{figure}
 

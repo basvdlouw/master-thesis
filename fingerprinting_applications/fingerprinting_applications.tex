@@ -105,7 +105,6 @@ Regarding RDP, establishing a connection to a remote machine does not appear to 
 
 In our examination of a default installation of Ubuntu 22.04, we consistently found port 631 to be open. This port corresponds to the Common Unix Printing System (CUPS), a printer software driver.
 Besides CUPS, we did not find other services that were detectable through browser-based port scanning after enabling several network-related services, similarly to Windows.
-
 However, like Windows, Ubuntu maintains a \texttt{/etc/services} file, mapping 326 well-known ports to services. While most of these ports fall within the restricted range, approximately 150–180 ports are outside it, providing a basis for fingerprinting different Ubuntu OS configurations.
 
 \subsection{Analysis}

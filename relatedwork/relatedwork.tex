@@ -14,7 +14,7 @@
 Browser fingerprinting is a well-known technique that has garnered significant attention, thanks to Eckersley's pioneering work in bringing the issue to the forefront~\citescientific{eckersley2010}. Eckersley developed an algorithm capable of identifying a browser fingerprint with an accuracy of 83.6\%, and it could also detect changes in the fingerprint with 99.1\% accuracy. Subsequent studies have focused on exploring various properties that can be utilized for re-identification, including IP address and user-agent~\citescientific{yen2012}, fingerprinting the HTML5 canvas~\citescientific{mowery2012}, detection of installed fonts, time zone, and screen resolution~\citescientific{boda2012}, as well as measuring the timing of the JavaScript engine execution~\citescientific{mowery2011,rokicki2021}, among others.
 Nikiforakis et al.~\citescientific{nikiforakis2013}, Laperdrix et al.~\citescientific{laperdrix2016} and Gomez et al.~\citescientific{gomez2018} have further investigated the practical usage of these techniques, showcasing that this is a real threat to user privacy on the internet. Building upon this research, our paper aims to introduce a fingerprinting technique through browser-based port scanning, focusing on an area with limited existing literature.
 
-\section{Fingerprinting running services and the local network}
+\section{Fingerprinting the local network}
 % Port scanning in general
 Aforementioned browser fingerprinting techniques are lacking research when it comes to fingerprinting the local network. Scanning for open ports on the local network can yield promising results, such as revealing running applications on a system.
 Port scanning in general is a well-known technique that is widely used due to its utility for network administrators and its potential use by attackers.
@@ -23,7 +23,8 @@ Several tools have been developed to scan ports. Nmap~\citescientific{orebaugh20
 
 Nmap is a network scanning tool commonly used by network administrators and both ethical and malicious hackers. It comes preinstalled on Kali Linux, a specialized operating system designed for penetration testing. The tool is able to generate a fingerprint of a target system by sending probes to several ports. Nmap uses TCP, UDP and ICMP probes to directly scan for open ports at the protocol level. Various ambiguities in the standard protocol RFC can
 then be exploited due to small implementation differences.
-Nmap utilizes an extensive fingerprint database to compare the resulting fingerprint with reference fingerprints. See an example reference fingerprint in Figure~\ref{fig:nmap-fingerprint}. 
+Nmap utilizes an extensive fingerprint database to compare the resulting fingerprint with reference fingerprints. 
+An example reference fingerprint by Lyon~\citescientific{Lyon2009} is depicted in Figure~\ref{fig:nmap-fingerprint}. 
 
 \begin{figure}[H]
     \begin{verbatim}
@@ -45,7 +46,7 @@ Nmap utilizes an extensive fingerprint database to compare the resulting fingerp
     U1(DF=N%T=3B-45%TG=40%IPL=38%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=0%RUD=G)
     IE(DFI=S%T=3B-45%TG=40%CD=S)
     \end{verbatim}
-    \caption{Typical Nmap reference fingerprint~\protect\citescientific{Lyon2009}}
+    \caption{Typical Nmap reference fingerprint}
     \label{fig:nmap-fingerprint}
 \end{figure}
 
