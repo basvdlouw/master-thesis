@@ -90,11 +90,12 @@ In our experiment, we conducted a thorough scan across the entire port range on 
      Microsoft Message Queue (MSMQ) Server & 50921 & mqsvc.exe & While enabling MSMQ temporarily opened port 50921, it falls within the dynamic port range and is not suitable for reliable fingerprinting. \\
      \bottomrule
 \end{tabular}
-\caption{Windows Features and Their Associated Open Ports}
+\caption{Windows Features and their associated open ports}
 \label{tab:windows-features-open-ports}
 \end{table}
 
 Additionally, Windows contains a default mapping of well-known ports in the 
+
 \texttt{\%WINDIR\%\textbackslash System32\textbackslash drivers\textbackslash etc\textbackslash services} file, including approximately 100–135 ports outside the restricted range, which can serve as a foundation for targeted scans.
 Aside from Windows features, there are standard settings that may be enabled or disabled on Windows. We tested for open ports (outside the restricted range) on settings that require network connectivity, such as Bluetooth, Devices, Phone Link, VPN and Remote Desktop Protocol.
 
@@ -222,7 +223,7 @@ The setup for the experiment is similar to fingerprinting the underlying OS.
     \item \textbf{Verifying Detectability Through Timing Attacks}: Response times were compared to closed ports, in order to verify whether ports were detectable through timing measurements.
 \end{enumerate}
 
-The experiment was conducted on a testing machine using Windows 11 and Google Chrome 114. 
+The experiment was conducted on a testing machine using Windows 11 and Chrome 114. 
 
 \subsection{Experiment Results}
 
@@ -246,7 +247,7 @@ The results of the scanned applications are presented in Table~\ref{tab:identify
     Gaming & Steam & 53245 53237 53236 27060 27036 & -- & 27060 & -- & 120.19 & Many ports in Established state. Only port 27060 in a Listening state. \\ 
     VPN & ExpressVPN & 54719 2020 & -- & 2020 & -- & 56.79 & Ports 2020, 54719 in a listening state. \\ 
     Automation framework & Selenium & 59542. 59536 59536 30454 & -- & 30454 & -- & 72.39 & \\ 
-    Web Browser & Microsoft Edge & 61773--61849 & -- & -- & -- & >200 & No TCP ports in a listening state. \\ 
+    Web Browser & Edge & 61773--61849 & -- & -- & -- & >200 & No TCP ports in a listening state. \\ 
     Peripherals & Logitech G HUB & 9010 9080 9100 45654 & -- & 9010 9080 9100 45654 & -- & 68 31.1 60.6 62.9 & All ports running HTTP. \\ 
      \bottomrule
 \end{tabular}
@@ -294,7 +295,7 @@ such as being able to detect a voice call on Microsoft Teams, or sending/retriev
     \item Discord
     \item WhatsApp
     \item Telegram
-    \item Google Chrome
+    \item Chrome
     \item Firefox
 \end{itemize}
 

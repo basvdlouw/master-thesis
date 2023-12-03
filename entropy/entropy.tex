@@ -25,7 +25,7 @@ The value of anonymity lies in the ability to remain unreachable, preventing oth
 \subsubsection{Theoretical Limitation}
 
 In theory, the number of possible open port combinations is constrained by the total number of ports available on a system. This results in $2^{65535}$ different combinations.
-This number arises from the fact that there are 65,535 ports available on a system, and each of these ports can either be open (1) or closed (0), resulting in a binary representation of open and closed ports for each combination. 
+This number arises from the fact that there are 65,536 ports available on a system, and each of these ports can either be open (1) or closed (0), resulting in a binary representation of open and closed ports for each combination. 
 Theoretically, this allows for an immense number of unique port combinations, and thereby a very high entropy.
 
 However, not all ports are detectable by a browser, restricted ports~\citetechnical{firefox_restricted_ports}\citeartifact{chrome_restricted_ports} are not detectable, which is not a significant amount of ports, but still noteworthy.
@@ -40,7 +40,7 @@ In practice, achieving the full spectrum of possible port combinations is neithe
 \begin{itemize}
 \item One of the primary limitations of browser-based port scanning is the time required for scanning. As previously determined, conducting a scan across the entire port range is a time-consuming process. For instance, on the Chrome browser, it was found that approximately 1,000 ports can be scanned within one second (on Windows). This observation underscores the need for practicality in our approach.
 
-\item To address this limitation, we focus our calculation on a limited number of ports, rather than attempting to scan the entire range of 65,535 ports, we aim to target a limit set of ports, ranging from 1,000 to 10,000 ports, that are associated with the most popular applications and services. However, it is essential to recognize that not all combinations of open ports will occur with the same likelihood.
+\item To address this limitation, we focus our calculation on a limited number of ports, rather than attempting to scan the entire range of 65,536 ports, we aim to target a limit set of ports, ranging from 1,000 to 10,000 ports, that are associated with the most popular applications and services. However, it is essential to recognize that not all combinations of open ports will occur with the same likelihood.
 
 \item To account for variations in the likelihood of specific port combinations, we employ probability distribution formulas. These formulas will allow us to assign realistic probabilities to each combination of open ports, compared to assigning completely random probabilities. By doing so, we can generate a dataset that somewhat reflects realistic usage patterns, with some applications being more popular than others, while still capturing the diversity of open port combinations. Of course, a better dataset would be real-world data, but this is currently not available.
 \end{itemize}
@@ -126,7 +126,7 @@ In contrast to the previous two distributions, we include the Uniform distributi
 We use a systematic approach to investigate the relationship between data distribution and fingerprint uniqueness. 
 
 \begin{itemize}
-\item \textbf{Port Range:} For our experiments, we consider a range of 1,000 and 10,000 ports, representing a subset of the total 65,535 ports available. This choice is based on practical considerations, as scanning all 65,535 ports is time-consuming and not realistic for browser-based port scanning.
+\item \textbf{Port Range:} For our experiments, we consider a range of 1,000 and 10,000 ports, representing a subset of the total 65,536 ports available. This choice is based on practical considerations, as scanning all 65,536 ports is time-consuming and not realistic for browser-based port scanning.
 
 \item \textbf{Probability Distribution:} For each of the three selected probability distributions (Geometric, Zipf, Uniform), we calculate the probabilities of individual ports being open based on the chosen distribution. 
 \end{itemize}
