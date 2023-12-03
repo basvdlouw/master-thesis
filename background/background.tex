@@ -36,13 +36,14 @@ Figure~\ref{fig:js-network-stack} by Zlatkov~\citearticle{medium_js_networking} 
 
 This is the main technical difference between regular port scanning and browser-based port scanning, browser-based port scanning operates at layer 7 in the OSI model~\citescientific{kumar2014}, while regular port scanning can also operate at lower levels in the OSI model, such as layer 4. 
 This makes regular port scanning much more powerful.
-Additionally, the browser sandbox has several security measures that will make port scans less successful, most importantly, the Same-Origin policy~\citetechnical{w3c_same_origin_policy, same_origin_mozilla} restricts how a script can interact with a resource from another origin. Cross-Origin Resource Sharing (CORS)~\citetechnical{cors,fetchspec} headers can be configured to grant access to cross-domain resources. 
+Additionally, the browser sandbox has several security measures that will make port scans less successful, most importantly, the Same-Origin policy~\citetechnical{w3c_same_origin_policy, same_origin_mozilla} restricts how a script can interact with a resource from another origin. 
+Cross-Origin Resource Sharing (CORS)~\citetechnical{cors,fetchspec} is a mechanism that relaxes the Same-Origin Policy selectively to allow controlled access to resources from different origins. 
 Aside from the technical scanning capabilities, the attack methodology is different, and this is what makes browser-based port scanning an interesting topic for research. 
 Unlike regular port scanning, which embodies an active stance, browser-based port scanning adopts a passive stance. 
 A website can discretely target its visitors without actively probing IPs or initiating network requests. The onus of initiating the attack rests on the user's act of visiting the website. 
 While a website could initiate a regular port scan to the user's IP address, this type of attack would be much more intrusive and likely blocked by a firewall or router.
 
-The crucial difference between browser-based port scanning and regular port scanning is that a browser-based port scan is executed locally on the user's machine, as opposed to originating from a server. 
+The crucial difference between browser-based port scanning and regular port scanning is that a browser-based port scan is executed \emph{locally} on the user's machine, as opposed to originating from a server. 
 This makes the attack a lot less intrusive, and not as easily detectable by intrusion detection systems. 
 Not only is the attack not as easily detected, more importantly, the attack is not as easily prevented.
 As the JavaScript is running locally on the user's system, there is likely nothing preventing the JavaScript from accessing the local network, besides the browser's sandbox environment.
