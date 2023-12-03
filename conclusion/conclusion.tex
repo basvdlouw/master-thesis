@@ -100,6 +100,13 @@ In our research, we primarily concentrated on using browser-based port scanning 
 Preliminary research was conducted on using browser-based port scanning to scan mobile devices. The initial findings did not yield any significant discoveries, but there exists potential for further exploration in this area, as the preliminary research was surface-level and did not dive deep into the network layer.
 Mobile devices have become a primary means of accessing online services and platforms for a significant portion of the population. Understanding how browser-based port scanning behaves on mobile platforms is important, as it may have unique implications and challenges compared to desktop environments.
 
+\subsubsection{Unsafe ports}
+As mentioned in our research, unsafe or restricted ports refer to a range of ports that are blocked by the browser.
+No information can be obtained from these ports, and this is a big limitation of browser-based port scanning. 
+Critical ports hosting OS services such as FTP, SSH, and SMTP are protected by this rule, and we cannot obtain information about them.
+However, as described in the documentation by Mozilla~\cite{firefox_restricted_ports}, there are protocol specific exceptions that are able to access these ports, such as the FTP, POP3 and IMAP protocols.
+We did not attempt to bypass the restriction of unsafe ports, so this could be a topic for further exploration. 
+
 
 % \section{Discussion}
 % Here, you discuss everything that might be questionable about your research. Try to be very honest, and discuss everything that makes that the results are not 100\% reliable.
