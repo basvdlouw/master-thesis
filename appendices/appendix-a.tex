@@ -64,90 +64,98 @@
 \caption{Number of ports detected based on socket timeout setting (100 open ports), scans were rerun 5 times to verify the accuracy of the results.}
 \label{tab:socket-timeout-comparison}
 \end{table}
-\clearpage
 
+\clearpage
 
 \section{Scanning technique efficacy comparison}
 
 \begin{table}[htbp]
-\footnotesize
-\centering
-\begin{adjustwidth}{-1.0cm}{}
-\begin{tabular}{p{6.3cm}p{1.5cm}p{1.7cm}p{1cm}p{1.3cm}p{3cm}}
-    \toprule
-    Base Image & Browser & Scanning Technique & Open Ports & Ports Detected & Scan Duration (ms) \\
-    \midrule
-    mcr.microsoft.com/windows:20H2-amd64 & Chrome & Fetch & 10 & 10 & 1282.6 \\
-    mcr.microsoft.com/windows:20H2-amd64 & Chrome & Fetch & 33 & 33 & 1313.5 \\
-    mcr.microsoft.com/windows:20H2-amd64 & Chrome & Fetch & 50 & 50 & 13153.8 \\
-    mcr.microsoft.com/windows:20H2-amd64 & Chrome & Fetch & 100 & 100 & 1177.4 \\
-    \midrule
-    mcr.microsoft.com/windows:20H2-amd64 & Chrome & WebSocket & 10 & 0 & 1463.5 \\
-    mcr.microsoft.com/windows:20H2-amd64 & Chrome & WebSocket & 33 & 0 & 1454.0 \\
-    mcr.microsoft.com/windows:20H2-amd64 & Chrome & WebSocket & 50 & 0 & 1464.3 \\
-    mcr.microsoft.com/windows:20H2-amd64 & Chrome & WebSocket & 100 & 0 & 1457.1 \\
-    \midrule
-    mcr.microsoft.com/windows:20H2-amd64 & Chrome & XHR & 10 & 0 & 1277.4 \\
-    mcr.microsoft.com/windows:20H2-amd64 & Chrome & XHR & 33 & 0 & 1303.3 \\
-    mcr.microsoft.com/windows:20H2-amd64 & Chrome & XHR & 50 & 0 & 1313.5 \\
-    mcr.microsoft.com/windows:20H2-amd64 & Chrome & XHR & 100 & 0 & 1097.2 \\
-    \midrule
-    library/ubuntu:22.04 & Chrome & Fetch & 10 & 10 & 104.5 \\
-    library/ubuntu:22.04 & Chrome & Fetch & 33 & 33 & 133.4 \\
-    library/ubuntu:22.04 & Chrome & Fetch & 50 & 50 & 160.9 \\
-    library/ubuntu:22.04 & Chrome & Fetch & 100 & 100 & 209.4 \\
-    \midrule
-    library/ubuntu:22.04 & Chrome & WebSocket & 10 & 0 & 1217.6 \\
-    library/ubuntu:22.04 & Chrome & WebSocket & 33 & 0 & 1216.5 \\
-    library/ubuntu:22.04 & Chrome & WebSocket & 50 & 0 & 1260.0 \\
-    library/ubuntu:22.04 & Chrome & WebSocket & 100 & 0 & 1216.6 \\
-    \midrule
-    library/ubuntu:22.04 & Chrome & XHR & 10 & 0 & 98.3 \\
-    library/ubuntu:22.04 & Chrome & XHR & 33 & 0 & 135.3 \\
-    library/ubuntu:22.04 & Chrome & XHR & 50 & 0 & 154.2 \\
-    library/ubuntu:22.04 & Chrome & XHR & 100 & 0 & 231.9 \\
-
-    \midrule
-    mcr.microsoft.com/windows:20H2-amd64 & Firefox & Fetch & 10 & 10 & 2553 \\
-    mcr.microsoft.com/windows:20H2-amd64 & Firefox & Fetch & 33 & 33 & 2561 \\
-    mcr.microsoft.com/windows:20H2-amd64 & Firefox & Fetch & 50 & 50 & 2552 \\
-    mcr.microsoft.com/windows:20H2-amd64 & Firefox & Fetch & 100 & 100 & 2386 \\
-    \midrule
-    mcr.microsoft.com/windows:20H2-amd64 & Firefox & WebSocket & 10 & 0 & 2627 \\
-    mcr.microsoft.com/windows:20H2-amd64 & Firefox & WebSocket & 33 & 0 & 2629 \\
-    mcr.microsoft.com/windows:20H2-amd64 & Firefox & WebSocket & 50 & 0 & 2511 \\
-    mcr.microsoft.com/windows:20H2-amd64 & Firefox & WebSocket & 100 & 0 & 2284 \\
-    \midrule
-    mcr.microsoft.com/windows:20H2-amd64 & Firefox & XHR & 10 & 0 & 2536 \\
-    mcr.microsoft.com/windows:20H2-amd64 & Firefox & XHR & 33 & 0 & 2569 \\
-    mcr.microsoft.com/windows:20H2-amd64 & Firefox & XHR & 50 & 0 & 2592 \\
-    mcr.microsoft.com/windows:20H2-amd64 & Firefox & XHR & 100 & 0 & 2308 \\
-    \midrule
-    library/ubuntu:22.04 & Firefox & Fetch & 10 & 10 & 286 \\
-    library/ubuntu:22.04 & Firefox & Fetch & 33 & 33 & 307 \\
-    library/ubuntu:22.04 & Firefox & Fetch & 50 & 50 & 282 \\
-    library/ubuntu:22.04 & Firefox & Fetch & 100 & 100 & 299 \\
-    \midrule
-    library/ubuntu:22.04 & Firefox & WebSocket & 10 & 0 & 268 \\
-    library/ubuntu:22.04 & Firefox & WebSocket & 33 & 0 & 276 \\
-    library/ubuntu:22.04 & Firefox & WebSocket & 50 & 0 & 290 \\
-    library/ubuntu:22.04 & Firefox & WebSocket & 100 & 0 & 270 \\
-    \midrule
-    library/ubuntu:22.04 & Firefox & XHR & 10 & 0 & 254 \\
-    library/ubuntu:22.04 & Firefox & XHR & 33 & 0 & 297 \\
-    library/ubuntu:22.04 & Firefox & XHR & 50 & 0 & 287 \\
-    library/ubuntu:22.04 & Firefox & XHR & 100 & 0 & 307 \\
-     \bottomrule
-\end{tabular}
-\end{adjustwidth}{}
-\caption{Scanning techniques comparison detecting HTTP ports. 50 parallel connections, 200ms socket timeout on Chrome, 400ms timeout on Firefox, 300 ports scanned.}
-
-\label{tab:scan-technique-comparison}
+    \footnotesize
+    \centering
+    \begin{tabular}{p{6.3cm}p{1.5cm}p{1.7cm}p{1.7cm}p{2.2cm}p{3cm}}
+        \toprule
+        Base Image & Scanning Technique & Open Ports & Ports Detected & Scan Duration (ms) \\
+        \midrule
+        mcr.microsoft.com/windows:20H2-amd64 & Fetch & 10 & 10 & 1282.6 \\
+        mcr.microsoft.com/windows:20H2-amd64 & Fetch & 33 & 33 & 1313.5 \\
+        mcr.microsoft.com/windows:20H2-amd64 & Fetch & 50 & 50 & 13153.8 \\
+        mcr.microsoft.com/windows:20H2-amd64 & Fetch & 100 & 100 & 1177.4 \\
+        \midrule
+        mcr.microsoft.com/windows:20H2-amd64 & WebSocket & 10 & 0 & 1463.5 \\
+        mcr.microsoft.com/windows:20H2-amd64 & WebSocket & 33 & 0 & 1454.0 \\
+        mcr.microsoft.com/windows:20H2-amd64 & WebSocket & 50 & 0 & 1464.3 \\
+        mcr.microsoft.com/windows:20H2-amd64 & WebSocket & 100 & 0 & 1457.1 \\
+        \midrule
+        mcr.microsoft.com/windows:20H2-amd64 & XHR & 10 & 0 & 1277.4 \\
+        mcr.microsoft.com/windows:20H2-amd64 & XHR & 33 & 0 & 1303.3 \\
+        mcr.microsoft.com/windows:20H2-amd64 & XHR & 50 & 0 & 1313.5 \\
+        mcr.microsoft.com/windows:20H2-amd64 & XHR & 100 & 0 & 1097.2 \\
+        \midrule
+        library/ubuntu:22.04 & Fetch & 10 & 10 & 104.5 \\
+        library/ubuntu:22.04 & Fetch & 33 & 33 & 133.4 \\
+        library/ubuntu:22.04 & Fetch & 50 & 50 & 160.9 \\
+        library/ubuntu:22.04 & Fetch & 100 & 100 & 209.4 \\
+        \midrule
+        library/ubuntu:22.04 & WebSocket & 10 & 0 & 1217.6 \\
+        library/ubuntu:22.04 & WebSocket & 33 & 0 & 1216.5 \\
+        library/ubuntu:22.04 & WebSocket & 50 & 0 & 1260.0 \\
+        library/ubuntu:22.04 & WebSocket & 100 & 0 & 1216.6 \\
+        \midrule
+        library/ubuntu:22.04 & XHR & 10 & 0 & 98.3 \\
+        library/ubuntu:22.04 & XHR & 33 & 0 & 135.3 \\
+        library/ubuntu:22.04 & XHR & 50 & 0 & 154.2 \\
+        library/ubuntu:22.04 & XHR & 100 & 0 & 231.9 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Scanning techniques comparison on Chrome detecting HTTP ports. 50 parallel connections, 200ms socket timeout, 300 ports scanned.}
+    \label{tab:scan-technique-comparison-chrome}
 \end{table}
 
 \clearpage
 
-Note that the results in Table~\ref{tab:scan-technique-comparison} do not mark ports as detected if they can be detected through post-scan analysis. The next section showcases the ability to detect open ports through post-scan analysis.
+\begin{table}[htbp]
+    \footnotesize
+    \centering
+    \begin{tabular}{p{6.3cm}p{1.5cm}p{1.7cm}p{1.7cm}p{2.2cm}p{3cm}}
+        \toprule
+        Base Image & Scanning Technique & Open Ports & Ports Detected & Scan Duration (ms) \\
+        \midrule
+        mcr.microsoft.com/windows:20H2-amd64 & Fetch & 10 & 10 & 2553 \\
+        mcr.microsoft.com/windows:20H2-amd64 & Fetch & 33 & 33 & 2561 \\
+        mcr.microsoft.com/windows:20H2-amd64 & Fetch & 50 & 50 & 2552 \\
+        mcr.microsoft.com/windows:20H2-amd64 & Fetch & 100 & 100 & 2386 \\
+        \midrule
+        mcr.microsoft.com/windows:20H2-amd64 & WebSocket & 10 & 0 & 2627 \\
+        mcr.microsoft.com/windows:20H2-amd64 & WebSocket & 33 & 0 & 2629 \\
+        mcr.microsoft.com/windows:20H2-amd64 & WebSocket & 50 & 0 & 2511 \\
+        mcr.microsoft.com/windows:20H2-amd64 & WebSocket & 100 & 0 & 2284 \\
+        \midrule
+        mcr.microsoft.com/windows:20H2-amd64 & XHR & 10 & 0 & 2536 \\
+        mcr.microsoft.com/windows:20H2-amd64 & XHR & 33 & 0 & 2569 \\
+        mcr.microsoft.com/windows:20H2-amd64 & XHR & 50 & 0 & 2592 \\
+        mcr.microsoft.com/windows:20H2-amd64 & XHR & 100 & 0 & 2308 \\
+        \midrule
+        library/ubuntu:22.04 & Fetch & 10 & 10 & 286 \\
+        library/ubuntu:22.04 & Fetch & 33 & 33 & 307 \\
+        library/ubuntu:22.04 & Fetch & 50 & 50 & 282 \\
+        library/ubuntu:22.04 & Fetch & 100 & 100 & 299 \\
+        \midrule
+        library/ubuntu:22.04 & WebSocket & 10 & 0 & 268 \\
+        library/ubuntu:22.04 & WebSocket & 33 & 0 & 276 \\
+        library/ubuntu:22.04 & WebSocket & 50 & 0 & 290 \\
+        library/ubuntu:22.04 & WebSocket & 100 & 0 & 270 \\
+        \midrule
+        library/ubuntu:22.04 & XHR & 10 & 0 & 254 \\
+        library/ubuntu:22.04 & XHR & 33 & 0 & 297 \\
+        library/ubuntu:22.04 & XHR & 50 & 0 & 287 \\
+        library/ubuntu:22.04 & XHR & 100 & 0 & 307 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Scanning techniques comparison on Firefox detecting HTTP ports. 50 parallel connections, 400ms timeout, 300 ports scanned.}
+    \label{tab:scan-technique-comparison-firefox}
+\end{table}
+
+Note that the results in Tables~\ref{tab:scan-technique-comparison-chrome} and~\ref{tab:scan-technique-comparison-firefox} do not mark ports as detected if they can be detected through post-scan analysis. The next section showcases the ability to detect open ports through post-scan analysis.
 
 
 \section{Post-scan analysis efficacy comparison}
