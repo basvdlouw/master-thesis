@@ -79,6 +79,7 @@ Once a port was identified as open after service activation, we conducted two ve
 In our experiment, we conducted a thorough scan across the entire port range on a default Windows 11 installation. Initially, no open ports (beyond the restricted range) were detected. However, after making adjustments to the OS configuration, we successfully identified several open ports. These results are summarized in Table~\ref{tab:windows-features-open-ports}.
 
 \begin{table}[htbp]
+\begin{adjustwidth}{-0.5cm}{}
 \footnotesize
 \centering
 \begin{tabular}{p{4cm}p{1cm}p{2cm}p{8cm}}
@@ -94,6 +95,7 @@ In our experiment, we conducted a thorough scan across the entire port range on 
 \end{tabular}
 \caption{Windows Features and their associated open ports}
 \label{tab:windows-features-open-ports}
+\end{adjustwidth}{}
 \end{table}
 
 Additionally, Windows contains a default mapping of well-known ports in the 
@@ -234,7 +236,7 @@ The results of the scanned applications are presented in Table~\ref{tab:identify
 \begin{table}[htbp]
 \footnotesize
 \centering
-\begin{adjustwidth}{-0.5cm}{}
+\begin{adjustwidth}{-1cm}{}
 \begin{tabular}{p{2cm}p{2cm}p{1cm}p{1cm}p{1cm}p{1cm}p{1cm}p{5cm}}
     \toprule
     Category & Application & \multicolumn{2}{c}{opened ports} & \multicolumn{2}{c}{detected ports} & Resp. Time & Notes\\
