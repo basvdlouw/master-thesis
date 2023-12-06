@@ -38,15 +38,16 @@ This is the main technical difference between regular port scanning and browser-
 This makes regular port scanning much more powerful.
 Additionally, the browser sandbox has several security measures that will make port scans less successful, most importantly, the Same-Origin policy~\citetechnical{w3c_same_origin_policy, same_origin_mozilla} restricts how a script can interact with a resource from another origin. 
 Cross-Origin Resource Sharing (CORS)~\citetechnical{cors,fetchspec} is a mechanism that relaxes the Same-Origin Policy selectively to allow controlled access to resources from different origins. 
+
 Aside from the technical scanning capabilities, the attack methodology is different, and this is what makes browser-based port scanning an interesting topic for research. 
 Unlike regular port scanning, which embodies an active stance, browser-based port scanning adopts a passive stance. 
 A website can discretely target its visitors without actively probing IPs or initiating network requests. The onus of initiating the attack rests on the user's act of visiting the website. 
 While a website could initiate a regular port scan to the user's IP address, this type of attack would be much more intrusive and likely blocked by a firewall or router.
-
 The crucial difference between browser-based port scanning and regular port scanning is that a browser-based port scan is executed \emph{locally} on the user's machine, as opposed to originating from a server. 
 This makes the attack a lot less intrusive, and not as easily detectable by intrusion detection systems. 
 Not only is the attack not as easily detected, more importantly, the attack is not as easily prevented.
 As the JavaScript is running locally on the user's system, there is likely nothing preventing the JavaScript from accessing the local network, besides the browser's sandbox environment.
+
 The main area of research for browser-based port scanning is the fingerprinting capabilities. 
 Browser-based port scanning is limited compared to regular port scanning, and security vulnerabilities are therefore unlikely, as it necessitates a breach of the browser's sandbox environment. 
 For this reason, this paper focuses on privacy vulnerabilities, as ports can reveal a lot of information about the underlying system, and therefore enhance the capabilities of establishing a unique fingerprint.
