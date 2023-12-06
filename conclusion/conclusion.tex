@@ -13,13 +13,16 @@ We estimate that on Windows/Chrome, which is the most popular combination of OS/
 
 \textbf{RQ2: What information can browser-based port scanning reveal about the underlying operating system?}
 
-We found that operating systems by default do not expose ports that can be revealed through a browser, with the exception of CUPS on Ubuntu. Most OS ports fall under the restricted port range and cannot be detected through browser-based port scanning. However, both Windows and Ubuntu host a \texttt{/etc/services} file which contains a mapping between ports and OS services. This mapping can be used as a foundation for a targeted scan to fingerprint the underlying OS.
+We found that operating systems by default do not expose ports that can be revealed through a browser, with the exception of CUPS on Ubuntu. 
+Most OS ports fall under the restricted port range and cannot be detected through browser-based port scanning. 
+However, when activating certain services on the OS, some of these services are detectable, such as Hyper-V on Windows.
+Furthermore, both Windows and Ubuntu host a \texttt{/etc/services} file which contains a mapping between ports and OS services. This mapping can be used as a foundation for a targeted scan to fingerprint the underlying OS.
 \\
 
 \textbf{RQ3: What information can browser-based port scanning reveal about specific programs
 running locally on a user’s system?}
 
-Unlike OS fingerprinting, fingerprinting specific programs is more effective. 
+Fingerprinting specific programs is more effective than fingerprinting the OS. 
 We found many programs from different categories that open a distinct port on the local system, which can be revealed through browser-based port scanning. 
 We argue that browser-based port scanning can be used to track users by identifying open ports corresponding to specific applications, and is thereby a direct threat to user privacy/anonymity on the internet, especially when combined with known fingerprinting techniques.
 
@@ -105,7 +108,7 @@ As mentioned in our research, unsafe or restricted ports refer to a range of por
 No information can be obtained from these ports, and this is a big limitation of browser-based port scanning. 
 Critical ports hosting OS services such as FTP, SSH, and SMTP are protected by this rule, and we cannot obtain information about them.
 However, as described in the documentation by Mozilla~\cite{firefox_restricted_ports}, there are protocol specific exceptions that are able to access these ports, such as the FTP, POP3 and IMAP protocols.
-We did not attempt to bypass the restriction of unsafe ports, so this could be a topic for further exploration. 
+Leveraging these protocols or finding a different way to bypass the restriction of unsafe ports is a topic for further exploration. 
 
 
 % \section{Discussion}
